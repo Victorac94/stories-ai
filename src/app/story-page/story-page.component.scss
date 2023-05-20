@@ -1,0 +1,99 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    animation: fadeIn 0.6s ease-out;
+
+    h2 {
+        font-size: 1.5rem;
+        color: white;
+        padding: 1.5rem 1rem;
+        text-align: center;
+    }
+
+    p {
+        color: white;
+        margin: 1.5rem;
+        line-height: 1.4rem;
+        text-align: justify;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    app-choose-option {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .image-desktop {
+        display: none;
+    }
+
+    .selected-option {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 1.5rem 1rem;
+        padding-bottom: 2rem;
+
+        p {
+            margin-top: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+        button {
+            flex-grow: 1;
+            color: white;
+            text-align: center;
+            background: transparent;
+            border: 1px solid #c6974d;
+            border-radius: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+
+            &:first-of-type {
+                flex-basis: 100%;
+                margin: 1rem 0;
+            }
+
+            &:nth-child(2) {
+                margin-right: 0.5rem;
+            }
+
+            &:last-of-type {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-top: 5rem;
+        box-shadow: 0 0 10px 0 #000000;
+
+        .image-mobile {
+            display: none;
+        }
+
+        .image-desktop {
+            display: block;
+        }
+    }
+}

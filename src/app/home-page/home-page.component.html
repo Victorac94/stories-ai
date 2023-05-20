@@ -1,0 +1,19 @@
+<div class="container">
+    <!-- Hero -->
+    <div class="hero-container">
+        <img class="mobile main-image" src="/assets/images/sci_fi_1_midjourney.png" alt="Open book image">
+        <img class="desktop main-image" src="/assets/images/open_book_1_midjourney.png" alt="Open book image">
+        <h1>StoriesAI</h1>
+        <h2>Descubre historias escritas y dibujadas por una IA</h2>
+    </div>
+
+    <!-- Genres -->
+    <div id="genres" class="genres-heading-section">
+        <hr class="left-hr">
+        <h3>Géneros</h3>
+        <hr class="right-hr">
+    </div>
+    <div class="genres-container">
+        <app-genre-thumbnail *ngFor="let genre of genres" [genre]="genre"></app-genre-thumbnail>
+    </div>
+</div>

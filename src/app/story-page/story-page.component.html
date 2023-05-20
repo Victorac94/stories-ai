@@ -1,0 +1,46 @@
+<div class="container" *ngIf="story">
+    <!-- Title -->
+    <h2>{{story.title}}</h2>
+
+    <!-- Main image -->
+    <img class="image-desktop" [src]="story.rootStory.image_desktop">
+    <img class="image-mobile" [src]="story.rootStory.image_mobile">
+
+    <!-- Intro -->
+    <p class="intro">{{story.rootStory.text}}</p>
+
+    <!-- Choose story option -->
+    <app-choose-option [chooseOption]="'primary'" [optionA]="story.rootStory.optionA"
+        [optionB]="story.rootStory.optionB" (optionSelected)="onSelectOption($event)"></app-choose-option>
+
+    <!-- Selected option -->
+    <div class="selected-option" *ngIf="isPrimaryChooseOptionSelected">
+        <img class="image-desktop" [src]="selectedPrimaryChooseOption.image_desktop"
+            [alt]="selectedPrimaryChooseOption.optionText">
+        <img class="image-mobile" [src]="selectedPrimaryChooseOption.image_mobile"
+            [alt]="selectedPrimaryChooseOption.optionText">
+        <p>{{selectedPrimaryChooseOption.text}}</p>
+    </div>
+
+    <!-- Choose story option -->
+    <app-choose-option *ngIf="isPrimaryChooseOptionSelected" [chooseOption]="'secondary'"
+        [optionA]="selectedPrimaryChooseOption.optionA" [optionB]="selectedPrimaryChooseOption.optionB"
+        (optionSelected)="onSelectOption($event)"></app-choose-option>
+
+    <!-- Selected option -->
+    <div class="selected-option" *ngIf="isSecondaryChooseOptionSelected">
+        <img class="image-desktop" [src]="selectedSecondaryChooseOption.image_desktop"
+            [alt]="selectedSecondaryChooseOption.optionText">
+        <img class="image-mobile" [src]="selectedSecondaryChooseOption.image_mobile"
+            [alt]="selectedSecondaryChooseOption.optionText">
+        <p>{{selectedSecondaryChooseOption.text}}</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p *ngIf="isSecondaryChooseOptionSelected">FIN</p>
+        <button (click)="restartStory()">Volver a empezar</button>
+        <button [routerLink]="['/', 'home', '#genres']">Géneros</button>
+        <button [routerLink]="['/', 'genres', story.genre]">{{capitalize(story.genre)}}</button>
+    </div>
+</div>

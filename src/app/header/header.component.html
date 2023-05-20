@@ -1,0 +1,77 @@
+<!-- Mobile header -->
+<div class="mobile-header-backdrop" (click)="hideMobileMenu()" #mobileHeaderBackdrop></div>
+<header class="mobile-header" #mobileHeader>
+    <h2>StoriesAI</h2>
+    <div class="menu-icon" (click)="toggleMobileMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <nav>
+        <div class="search">
+            <input type="search">
+            <button>Buscar</button>
+        </div>
+        <ul>
+            <li class="home">
+                <a routerLink="/home">Inicio</a>
+            </li>
+            <li class="genres">
+                <p>Géneros</p>
+                <hr>
+            </li>
+            <li class="genre-name">
+                <a routerLink="/genres/space">Espacio</a>
+            </li>
+            <li class="genre-name">
+                <a routerLink="/genres/desert">Desierto</a>
+            </li>
+            <li class="genre-name">
+                <a routerLink="/genres/marine">Acuático</a>
+            </li>
+            <li class="genre-name">
+                <a routerLink="/genres/diverse">Variado</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Desktop header -->
+<header class="desktop-header">
+    <h2>StoriesAI</h2>
+    <nav>
+        <ul>
+            <li class="home">
+                <a routerLink="/home">Inicio</a>
+            </li>
+            <li class="search">
+                <input type="search">
+                <button>Buscar</button>
+            </li>
+            <li class="genres">
+                Géneros
+                <ul>
+                    <li>
+                        <a routerLink="/genres/space">Espacio</a>
+                    </li>
+                    <li>
+                        <a routerLink="/genres/desert">Desierto</a>
+                    </li>
+                    <li>
+                        <a routerLink="/genres/marine">Acuático</a>
+                    </li>
+                    <li>
+                        <a routerLink="/genres/diverse">Variado</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- <li class="language">
+                Idioma
+                <ul>
+                    <li>Español</li>
+                    <li>English</li>
+                </ul>
+            </li> -->
+        </ul>
+    </nav>
+</header>

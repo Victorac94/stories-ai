@@ -3,10 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { HeaderComponent } from './header/header.component';
+import { GenrePageComponent } from './genre-page/genre-page.component';
+import { StoryPageComponent } from './story-page/story-page.component';
+import { GenreThumbnailComponent } from './genre-thumbnail/genre-thumbnail.component';
+import { StoryThumbnailComponent } from './story-thumbnail/story-thumbnail.component';
+import { ChooseOptionComponent } from './choose-option/choose-option.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    HeaderComponent,
+    GenrePageComponent,
+    StoryPageComponent,
+    GenreThumbnailComponent,
+    StoryThumbnailComponent,
+    ChooseOptionComponent
   ],
   imports: [
     BrowserModule,

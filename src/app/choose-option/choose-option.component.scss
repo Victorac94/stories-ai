@@ -1,0 +1,132 @@
+.container {
+    display: grid;
+    width: 100%;
+    padding: 1rem;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+        "choose-option  choose-option"
+        "imageA         imageB"
+        "textA          textB";
+
+    p {
+        color: white;
+        margin: 1rem;
+        text-align: center;
+        line-height: 1.3rem;
+        cursor: pointer;
+    }
+
+    .choose-option {
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        grid-area: choose-option;
+    }
+
+    .image-container {
+        border: 2px solid transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        &.desktop {
+            display: none;
+            width: 10rem;
+            height: 10rem;
+            overflow: hidden;
+            border-radius: 5px;
+            margin: 5rem 0;
+
+            &:first-of-type {
+                grid-area: imageA;
+            }
+
+            &:last-of-type {
+                grid-area: imageB;
+            }
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+        }
+
+        &.mobile {
+            width: calc(100% - 0.5rem);
+            height: calc((50vw - 1.5rem) * 4 / 3); // Get 3:4 aspect ratio
+            overflow: hidden;
+            position: relative;
+            border-top-right-radius: 1rem;
+            border-bottom-left-radius: 1rem;
+
+            &:first-of-type {
+                grid-area: imageA;
+            }
+
+            &:last-of-type {
+                grid-area: imageB;
+                margin-left: auto;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+
+            &:last-of-type {
+                border-radius: 0;
+                border-top-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+            }
+        }
+
+        &.active-option {
+            border-color: #c6974d;
+
+            img {
+                transition: transform 0.3s ease-out;
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .text-a {
+        grid-area: textA;
+    }
+
+    .text-b {
+        grid-area: textB;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        grid-template-columns: 30% 30% 20% 20%;
+        grid-template-areas:
+            "choose-option  choose-option  choose-option  choose-option"
+            "textA          textB          imageA         imageB";
+
+        p {
+            align-self: center;
+        }
+
+        .image-container {
+            &.desktop {
+                display: flex;
+                width: 13rem;
+                height: 13rem;
+                box-shadow: 3px 3px 10px 0 #000000;
+            }
+
+            &.mobile {
+                display: none;
+            }
+        }
+
+        .text-a,
+        .text-b {
+            text-align: left;
+        }
+    }
+}
