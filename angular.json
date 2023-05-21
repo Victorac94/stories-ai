@@ -25,6 +25,12 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "fileReplacements": [
+              {
+                "replace": "src/environment.ts",
+                "with": "src/environment.prod.ts"
+              }
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
