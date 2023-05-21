@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "stories-ai/",
             "outputPath": "dist/stories-ai",
             "index": "src/index.html",
             "main": "src/main.ts",
