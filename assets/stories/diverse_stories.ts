@@ -2,7 +2,7 @@ import { IStory } from "src/interfaces/story";
 
 import { environment } from 'src/environments/environment';
 
-export const invasionStories: IStory[] = [
+export const diverseStories: IStory[] = [
     {
         genre: 'diverse',
         id: 1,
