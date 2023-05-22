@@ -11,22 +11,22 @@ export class HomePageComponent implements OnInit {
   genres: any[] = [
     {
       name: 'Espacio',
-      image: 'assets/images/genre_thumbnails/genre_1.png',
+      image: 'assets/images/genre_thumbnails/genre_1.webp',
       link: '/genres/space'
     },
-    {
-      name: 'Desierto',
-      image: 'assets/images/genre_thumbnails/genre_2.png',
-      link: '/genres/desert'
-    },
-    {
-      name: 'Terror',
-      image: 'assets/images/genre_thumbnails/genre_3.png',
-      link: '/genres/terror'
-    },
+    // {
+    //   name: 'Desierto',
+    //   image: 'assets/images/genre_thumbnails/genre_2.webp',
+    //   link: '/genres/desert'
+    // },
+    // {
+    //   name: 'Terror',
+    //   image: 'assets/images/genre_thumbnails/genre_3.webp',
+    //   link: '/genres/terror'
+    // },
     {
       name: 'Variado',
-      image: 'assets/images/genre_thumbnails/genre_4.png',
+      image: 'assets/images/genre_thumbnails/genre_4.webp',
       link: '/genres/diverse'
     },
   ]
