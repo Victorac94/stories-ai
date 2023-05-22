@@ -58,8 +58,6 @@ export class ChooseOptionComponent implements OnInit {
    * @returns void
    */
   selectOption(option: IStoryOption | undefined, chosenOption: string): void {
-    // If user has already selected A or B option, do not do anything
-    // if (this.isOptionChosen) return;
 
     // If user selects option A
     if (chosenOption === 'A') {
