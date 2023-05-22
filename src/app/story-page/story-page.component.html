@@ -40,7 +40,7 @@
     <div class="footer">
         <p *ngIf="isSecondaryChooseOptionSelected">FIN</p>
         <button (click)="restartStory()">Volver a empezar</button>
-        <button [routerLink]="['/', 'home', '#genres']">Géneros</button>
+        <button [routerLink]="['/', 'home']">Géneros</button>
         <button [routerLink]="['/', 'genres', story.genre]">{{capitalize(story.genre)}}</button>
     </div>
 </div>

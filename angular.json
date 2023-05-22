@@ -37,19 +37,6 @@
           "configurations": {
             "production": {
               "baseHref": "stories-ai/",
-              "assets": [
-                "stories-ai/favicon.ico",
-                "stories-ai/assets"
-              ],
-              "styles": [
-                "stories-ai/styles.scss"
-              ],
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
               "budgets": [
                 {
                   "type": "initial",
