@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { IStory } from 'src/interfaces/story';
 import { IStoryOption } from 'src/interfaces/storyOption';
 
-import { invasionStories } from 'src/assets/stories/invasion_stories';
 import { AuxiliaryService } from '../auxiliary.service';
+
+import { diverseStories } from 'src/assets/stories/diverse_stories';
+import { spaceStories } from 'src/assets/stories/space_stories';
 
 @Component({
   selector: 'app-story-page',
@@ -38,16 +40,16 @@ export class StoryPageComponent implements OnInit {
 
     switch (genre) {
       case 'space':
-        this.story = this.loadStoryData(invasionStories, storyId, genre);
+        this.story = this.loadStoryData(spaceStories, storyId, genre);
         break;
       case 'desert':
-        this.story = this.loadStoryData(invasionStories, storyId, genre);
+        this.story = this.loadStoryData(diverseStories, storyId, genre);
         break;
-      case 'marine':
-        this.story = this.loadStoryData(invasionStories, storyId, genre);
+      case 'terror':
+        this.story = this.loadStoryData(diverseStories, storyId, genre);
         break;
       case 'diverse':
-        this.story = this.loadStoryData(invasionStories, storyId, genre);
+        this.story = this.loadStoryData(diverseStories, storyId, genre);
         break;
     }
     console.log(this.story);

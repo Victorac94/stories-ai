@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 
 import { IStory } from 'src/interfaces/story';
 
-import { invasionStories } from 'src/assets/stories/invasion_stories';
+import { diverseStories } from 'src/assets/stories/diverse_stories';
+import { spaceStories } from 'src/assets/stories/space_stories';
 
 @Component({
   selector: 'app-genre-page',
@@ -24,7 +25,7 @@ export class GenrePageComponent implements OnInit {
     window.scrollTo(0, 0);
     this.loadStories();
     // Depending on URL, load different genre stories
-    // this.stories = invasionStories;
+    // this.stories = diverseStories;
 
   }
 
@@ -33,16 +34,16 @@ export class GenrePageComponent implements OnInit {
 
     switch (genre) {
       case 'space':
-        this.stories = invasionStories;
+        this.stories = spaceStories;
         break;
       case 'desert':
-        this.stories = invasionStories;
+        this.stories = diverseStories;
         break;
-      case 'marine':
-        this.stories = invasionStories;
+      case 'terror':
+        this.stories = diverseStories;
         break;
       case 'diverse':
-        this.stories = invasionStories;
+        this.stories = diverseStories;
         break;
     }
   }

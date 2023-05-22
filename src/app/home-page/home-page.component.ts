@@ -20,9 +20,9 @@ export class HomePageComponent implements OnInit {
       link: '/genres/desert'
     },
     {
-      name: 'Acuatico',
+      name: 'Terror',
       image: '/assets/images/genre_thumbnails/genre_3.png',
-      link: '/genres/marine'
+      link: '/genres/terror'
     },
     {
       name: 'Variado',
