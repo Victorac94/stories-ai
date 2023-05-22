@@ -20,8 +20,6 @@ export class ChooseOptionComponent implements OnInit {
   @ViewChild('mobileImageA') mobileImageA: ElementRef = new ElementRef('');
   @ViewChild('mobileImageB') mobileImageB: ElementRef = new ElementRef('');
 
-  isOptionChosen: boolean = false;
-
   constructor(
     private renderer: Renderer2,
     private auxiliaryService: AuxiliaryService
@@ -37,7 +35,17 @@ export class ChooseOptionComponent implements OnInit {
         this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
         this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
         this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
-        this.isOptionChosen = false;
+      }
+    })
+
+    this.auxiliaryService.removeChooseOptionStyles.subscribe((chooseOption: string) => {
+      // Remove active styles from selected choose options
+      // chooseOption is either 'primary' or 'secondary
+      if (this.chooseOption === chooseOption) {
+        this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
+        this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
+        this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
+        this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
       }
     })
   }
@@ -51,21 +59,23 @@ export class ChooseOptionComponent implements OnInit {
    */
   selectOption(option: IStoryOption | undefined, chosenOption: string): void {
     // If user has already selected A or B option, do not do anything
-    if (this.isOptionChosen) return;
+    // if (this.isOptionChosen) return;
 
     // If user selects option A
     if (chosenOption === 'A') {
       this.optionSelected.emit({ option, chooseOption: this.chooseOption });
       this.renderer.addClass(this.desktopImageA.nativeElement, 'active-option');
       this.renderer.addClass(this.mobileImageA.nativeElement, 'active-option');
-      this.isOptionChosen = true;
+      this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
+      this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
 
       // If user selects option B
     } else if (chosenOption === 'B') {
       this.optionSelected.emit({ option, chooseOption: this.chooseOption });
       this.renderer.addClass(this.desktopImageB.nativeElement, 'active-option');
       this.renderer.addClass(this.mobileImageB.nativeElement, 'active-option');
-      this.isOptionChosen = true;
+      this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
+      this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
     }
   }
 

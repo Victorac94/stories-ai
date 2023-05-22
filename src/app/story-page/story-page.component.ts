@@ -80,22 +80,16 @@ export class StoryPageComponent implements OnInit {
   onSelectOption($event: any): void {
     console.log('onSelectOption() chooseOption chooseOptionStory', $event.chooseOption, $event);
 
-    // let scrollY = window.scrollY;
-
-    // setTimeout(() => {
     if ($event.chooseOption === 'primary') {
       this.selectedPrimaryChooseOption = $event.option;
       this.isPrimaryChooseOptionSelected = true;
+      this.isSecondaryChooseOptionSelected = false;
+      this.auxiliaryService.doRemoveChooseOptionStyles('secondary');
 
     } else if ($event.chooseOption === 'secondary') {
       this.selectedSecondaryChooseOption = $event.option;
       this.isSecondaryChooseOptionSelected = true;
     }
-
-    // setTimeout(() => {
-    //   window.scrollTo({ top: scrollY });
-    // }, 1);
-
   }
 
   restartStory(): void {
