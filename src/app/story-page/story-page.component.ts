@@ -1,5 +1,5 @@
 import { Component, OnInit, } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { IStory } from 'src/interfaces/story';
 import { IStoryOption } from 'src/interfaces/storyOption';
@@ -31,8 +31,18 @@ export class StoryPageComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     this.loadStory();
+
+    // Used when user selects a story from search results
+    this.router.events.subscribe(e => {
+      if (e instanceof NavigationEnd) {
+        this.restartStory(true, 'instant' as ScrollBehavior);
+      }
+    })
   }
 
+  /**
+   * Load story given 'genre' and 'storyId' from URL /genres/:genre/:storyId
+   */
   loadStory(): void {
     let genre = this.router.url.split('/')[2] // Get the genre from URL /genres/:genre/:storyId
     let storyId = parseInt(this.router.url.split('/')[3]) // Get the genre from URL /genres/:genre/:storyId
@@ -77,6 +87,11 @@ export class StoryPageComponent implements OnInit {
     return undefined;
   }
 
+  /**
+   * Shows selected option content. If selecting 'primary' chooseOption, hides 'secondary' chooseOption story content
+   * 
+   * @param $event Object containing 'A' or 'B' option object and wheter it's 'primary' or 'secondary' chooseOption
+   */
   onSelectOption($event: any): void {
     console.log('onSelectOption() chooseOption chooseOptionStory', $event.chooseOption, $event);
 
@@ -92,17 +107,29 @@ export class StoryPageComponent implements OnInit {
     }
   }
 
-  restartStory(): void {
+  /**
+   * Reset story option choices and scroll to top
+   * 
+   * @param isLoadingNewStory Wether we are loading a new story or the same one. Defaults to `false`
+   * @param scrollBehavior Whether to scroll top with 'smooth' or 'instant' behavior. Defaults to `smooth`
+   */
+  restartStory(isLoadingNewStory: boolean = false, scrollBehavior: ScrollBehavior = 'smooth'): void {
     this.selectedPrimaryChooseOption = {} as IStoryOption;
     this.selectedSecondaryChooseOption = {} as IStoryOption;
     this.isPrimaryChooseOptionSelected = false;
     this.isSecondaryChooseOptionSelected = false;
+
+    // If user is loading a new story from search results
+    if (isLoadingNewStory) {
+      this.story = undefined;
+    }
+
     this.auxiliaryService.restartStory();
     this.loadStory();
 
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: scrollBehavior
     })
   }
 

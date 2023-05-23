@@ -1,39 +1,57 @@
 <!-- Mobile header -->
 <div class="mobile-header-backdrop" (click)="hideMobileMenu()" #mobileHeaderBackdrop></div>
 <header class="mobile-header" #mobileHeader>
-    <h2>StoriesAI</h2>
-    <div class="menu-icon" (click)="toggleMobileMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <nav>
-        <div class="search">
-            <input type="search">
-            <button>Buscar</button>
+    <!-- Search results box -->
+    <div class="mobile-header-search-results" #mobileSearchResultsBox>
+        <div class="mobile-search-item" *ngFor="let item of mobileSearchResults"
+            [routerLink]="['genres', item.genre, item.story_id]">
+            <p [ngClass]="['genre', item.genre]">{{item.genre_es}}</p>
+            <p>{{item.title}}</p>
         </div>
-        <ul>
-            <li class="home">
-                <a routerLink="/home">Inicio</a>
-            </li>
-            <li class="genres">
-                <p>Géneros</p>
-                <hr>
-            </li>
-            <li class="genre-name">
-                <a routerLink="/genres/space">Espacio</a>
-            </li>
-            <!-- <li class="genre-name">
-                <a routerLink="/genres/desert">Desierto</a>
-            </li>
-            <li class="genre-name">
-                <a routerLink="/genres/terror">Terror</a>
-            </li> -->
-            <li class="genre-name">
-                <a routerLink="/genres/diverse">Variado</a>
-            </li>
-        </ul>
-    </nav>
+        <div class="mobile-search-item-not-found" *ngIf="noSearchResults">
+            No hay coincidencias
+        </div>
+    </div>
+
+    <!-- Menu container box -->
+    <div class="mobile-menu-container">
+        <!-- Header -->
+        <h2>StoriesAI</h2>
+        <div class="menu-icon" (click)="toggleMobileMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <!-- Menu -->
+        <nav>
+            <div class="search">
+                <input type="search" (input)="searchStory(mobileSearchInput.value)" #mobileSearchInput>
+                <button type="input">Buscar</button>
+            </div>
+            <ul>
+                <li class="home">
+                    <a routerLink="/home">Inicio</a>
+                </li>
+                <li class="genres">
+                    <p>Géneros</p>
+                    <hr>
+                </li>
+                <li class="genre-name">
+                    <a routerLink="/genres/space">Espacio</a>
+                </li>
+                <!-- <li class="genre-name">
+                    <a routerLink="/genres/desert">Desierto</a>
+                </li>
+                <li class="genre-name">
+                    <a routerLink="/genres/terror">Terror</a>
+                </li> -->
+                <li class="genre-name">
+                    <a routerLink="/genres/diverse">Variado</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
 <!-- Desktop header -->
