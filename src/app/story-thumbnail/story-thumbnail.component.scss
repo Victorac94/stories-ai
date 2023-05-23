@@ -21,7 +21,6 @@
     }
 
     p {
-        padding: 0.5rem 2rem;
         font-size: 1.05rem;
         color: white;
         text-align: center;
@@ -34,7 +33,7 @@
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
     .container {
         h4 {
             font-size: 1.2rem;

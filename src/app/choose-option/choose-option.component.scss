@@ -100,7 +100,7 @@
     }
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
     .container {
         grid-template-columns: 30% 30% 20% 20%;
         grid-template-areas:
@@ -114,8 +114,8 @@
         .image-container {
             &.desktop {
                 display: flex;
-                width: 13rem;
-                height: 13rem;
+                width: 12rem;
+                height: 12rem;
                 box-shadow: 3px 3px 10px 0 #000000;
             }
 
