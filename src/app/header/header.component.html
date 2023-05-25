@@ -3,8 +3,8 @@
 <header class="mobile-header" #mobileHeader>
     <!-- Search results box -->
     <div class="mobile-header-search-results" #mobileSearchResultsBox>
-        <div class="mobile-search-item" *ngFor="let item of mobileSearchResults"
-            [routerLink]="['genres', item.genre, item.story_id]">
+        <div class="mobile-search-item" *ngFor="let item of searchResults" (click)="onLoadSearchedStory(item)"
+            [title]="item.title">
             <p [ngClass]="['genre', item.genre]">{{item.genre_es}}</p>
             <p>{{item.title}}</p>
         </div>
@@ -26,13 +26,19 @@
         <!-- Menu -->
         <nav>
             <div class="search">
-                <input type="search" (input)="searchStory(mobileSearchInput.value)" #mobileSearchInput>
-                <button type="input">Buscar</button>
+                <a class="icon-home" routerLink="/home"></a>
+
+                <div class="input-container">
+                    <input type="search" (input)="searchStory(mobileSearchInput.value)" placeholder="Título o género..."
+                        #mobileSearchInput>
+                    <div class="bottom-line"></div>
+                </div>
+                <button type="input" (click)="setSearchInputFocus('mobile')">Buscar</button>
             </div>
             <ul>
-                <li class="home">
-                    <a routerLink="/home">Inicio</a>
-                </li>
+                <!-- <li class="home">
+                    <a class="icon-home" routerLink="/home"></a>
+                </li> -->
                 <li class="genres">
                     <p>Géneros</p>
                     <hr>
@@ -56,40 +62,59 @@
 
 <!-- Desktop header -->
 <header class="desktop-header">
-    <h2>StoriesAI</h2>
-    <nav>
-        <ul>
-            <li class="home">
-                <a routerLink="/home">Inicio</a>
-            </li>
-            <li class="search">
-                <input type="search">
-                <button>Buscar</button>
-            </li>
-            <li class="genres">
-                Géneros
-                <ul>
-                    <li>
-                        <a routerLink="/genres/space">Espacio</a>
-                    </li>
-                    <!-- <li>
-                        <a routerLink="/genres/desert">Desierto</a>
-                    </li>
-                    <li>
-                        <a routerLink="/genres/terror">Terror</a>
-                    </li> -->
-                    <li>
-                        <a routerLink="/genres/diverse">Variado</a>
-                    </li>
-                </ul>
-            </li>
-            <!-- <li class="language">
-                Idioma
-                <ul>
-                    <li>Español</li>
-                    <li>English</li>
-                </ul>
-            </li> -->
-        </ul>
-    </nav>
+    <!-- Search results box -->
+    <div class="desktop-header-search-results" #desktopSearchResultsBox>
+        <div class="desktop-search-item" *ngFor="let item of searchResults" (click)="onLoadSearchedStory(item)"
+            [title]="item.title">
+            <p [ngClass]="['genre', item.genre]">{{item.genre_es}}</p>
+            <p>{{item.title}}</p>
+        </div>
+        <div class="desktop-search-item-not-found" *ngIf="noSearchResults">
+            No hay coincidencias
+        </div>
+    </div>
+
+    <!-- Menu container box -->
+    <div class="desktop-menu-container">
+        <h2>StoriesAI</h2>
+        <nav>
+            <ul>
+                <li class="home">
+                    <a routerLink="/home">Inicio</a>
+                </li>
+                <li class="search">
+                    <div class="input-container">
+                        <input type="search" (input)="searchStory(desktopSearchInput.value)"
+                            placeholder="Busca por título o género..." #desktopSearchInput>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <button (click)="setSearchInputFocus('desktop')">Buscar</button>
+                </li>
+                <li class="genres">
+                    Géneros
+                    <ul>
+                        <li>
+                            <a routerLink="/genres/space">Espacio</a>
+                        </li>
+                        <!-- <li>
+                            <a routerLink="/genres/desert">Desierto</a>
+                        </li>
+                        <li>
+                            <a routerLink="/genres/terror">Terror</a>
+                        </li> -->
+                        <li>
+                            <a routerLink="/genres/diverse">Variado</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- <li class="language">
+                    Idioma
+                    <ul>
+                        <li>Español</li>
+                        <li>English</li>
+                    </ul>
+                </li> -->
+            </ul>
+        </nav>
+    </div>
 </header>

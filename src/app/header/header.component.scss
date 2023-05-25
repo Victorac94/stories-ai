@@ -60,10 +60,6 @@
         &.show {
             &.show-1 {
                 top: -3.6rem;
-
-                // &:has(.mobile-search-item-not-found) {
-                //     top: -3rem;
-                // }
             }
 
             &.show-2 {
@@ -150,17 +146,67 @@
             .search {
                 width: 100%;
                 display: flex;
+                align-items: center;
+                margin-bottom: 2rem;
+                position: relative;
+                left: -0.3rem;
 
-                input {
-                    flex-grow: 1;
-                    outline: none;
-                    border: none;
-                    border-top-left-radius: 0.3rem;
-                    border-bottom-left-radius: 0.3rem;
-                    padding: 0.4rem;
-                    font-size: 1.1rem;
-                    background-color: #212b36;
+                a {
+                    font-size: 1.4rem;
                     color: white;
+                    text-decoration: none;
+                    padding: 0.3rem;
+                    margin-right: 0.3rem;
+
+                    &:visited {
+                        color: white;
+                    }
+                }
+
+                .input-container {
+                    display: flex;
+                    flex-grow: 1;
+                    position: relative;
+
+                    &:focus-within {
+                        input {
+                            &::placeholder {
+                                visibility: visible;
+                            }
+                        }
+
+                        .bottom-line {
+                            transform: scale(1);
+                        }
+                    }
+
+                    input {
+                        flex-grow: 1;
+                        outline: none;
+                        border: none;
+                        border-top-left-radius: 0.3rem;
+                        border-bottom-left-radius: 0.3rem;
+                        padding: 0.4rem;
+                        font-size: 1.1rem;
+                        background-color: #212b36;
+                        color: white;
+
+                        &::placeholder {
+                            visibility: hidden;
+                        }
+                    }
+
+                    .bottom-line {
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        width: 100%;
+                        height: 1px;
+                        background-color: white;
+                        transform: scale(0);
+                        transform-origin: left;
+                        transition: transform 0.5s ease-out;
+                    }
                 }
 
                 button {
@@ -179,11 +225,6 @@
                 flex-wrap: wrap;
                 justify-content: space-between;
                 align-items: center;
-
-                .home {
-                    margin: 1rem;
-                    flex-basis: 100%;
-                }
 
                 p {
                     color: white;
@@ -220,6 +261,11 @@
                     //     margin-right: 0;
                     //     padding-right: 0;
                     // }
+                }
+
+                .home {
+                    margin: 1rem;
+                    flex-basis: 100%;
                 }
 
                 .genres {
@@ -259,139 +305,248 @@
 
     .desktop-header {
         display: flex;
-        align-items: center;
         width: 100%;
         max-width: 1000px;
         position: fixed;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        padding: 0.2rem 1rem;
+        padding: 0 1rem;
         margin-top: 5px;
         border-radius: 2rem;
         background-color: #16202b;
         color: white;
         box-shadow: 0 0 5px 0 #161c22;
 
-        h2 {
-            font-size: 1.1rem;
-            padding: 1.2rem;
+        .desktop-header-search-results {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50%;
+            height: 0;
+            overflow: hidden;
+            background-color: #212b36;
+            box-shadow: 0 0 5px 0 #161c22;
+            transition: height 0.3s ease-out;
+            z-index: -1;
+
+            &.show {
+                &.show-1 {
+                    height: 3.6rem;
+                }
+
+                &.show-2 {
+                    height: 7.2rem;
+                }
+
+                &.show-3 {
+                    height: 10.8rem;
+                }
+            }
+
+            .desktop-search-item,
+            .desktop-search-item-not-found {
+                width: 100%;
+                padding: 1rem 1.5rem;
+                color: white;
+                text-align: center;
+                animation: fadeIn 0.3s ease-out forwards;
+                opacity: 0;
+            }
+
+            .desktop-search-item {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .genre {
+                    padding: 0.3rem 0.5rem;
+                    margin-right: 1rem;
+                    border-radius: 0.3rem;
+                    background-color: #000000;
+
+                    &.space {
+                        background-color: #1e4788;
+                    }
+
+                    &.diverse {
+                        background-color: #4e1e88;
+                    }
+                }
+            }
+
+            .desktop-search-item-not-found {
+                padding: 1.3rem 1.5rem;
+            }
         }
 
-        nav {
+        .desktop-menu-container {
             display: flex;
-            flex-grow: 1;
+            align-items: center;
+            width: 100%;
+            padding: 0.2rem 0;
+            background-color: #16202b;
 
-            ul {
-                flex-grow: 1;
+            h2 {
+                font-size: 1.1rem;
+                padding: 1.2rem;
+            }
+
+            nav {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                flex-grow: 1;
 
-                a {
-                    display: block;
-                    color: white;
-                    text-align: center;
-                    text-decoration: none;
-
-                    &:visited {
-                        color: white;
-                    }
-                }
-
-                .home {
-                    padding: 0.6rem 1.3rem;
-
-                    a {
-                        padding: 0.4rem;
-                    }
-                }
-
-                .search {
+                ul {
                     flex-grow: 1;
                     display: flex;
+                    justify-content: space-between;
+                    align-items: center;
 
-                    input {
-                        position: relative;
-                        flex-grow: 1;
-                        outline: none;
-                        border: none;
-                        border-radius: 3px;
-                        padding: 0.4rem;
-                        font-size: 1.1rem;
-                        color: white;
-                        background-color: #16202b;
-                        text-align: right;
-                        transition: background-color 0.1s;
-
-                        &:focus {
-                            // border-bottom: 1px solid white;
-                            background-color: #212b36;
-
-                            // &::after {
-                            //     transform: scaleX(1);
-                            // }
-                        }
-
-                        &::after {
-                            content: "hola";
-                            display: block;
-                            position: absolute;
-                            top: 50%;
-                            right: 50%;
-                            width: 100px;
-                            height: 100px;
-                            background-color: white;
-                            // transform: scaleX(0);
-                            // transform-origin: right;
-                            // transition: transform 0.5s;
-                            z-index: 100;
-                        }
-                    }
-
-                    button {
-                        border: none;
-                        padding: 0.4rem 0.8rem;
-                        font-size: 1.07rem;
-                        color: white;
-                        background-color: #16202b;
+                    li {
                         cursor: pointer;
-                    }
-                }
 
-                .genres,
-                .language {
-                    position: relative;
-                    padding: 1rem 1.7rem;
-
-                    &:hover {
-                        ul {
+                        a {
                             display: block;
-                        }
-                    }
+                            color: white;
+                            text-align: center;
+                            text-decoration: none;
 
-                    ul {
-                        display: none;
-                        position: absolute;
-                        top: 100%;
-                        left: 0;
-                        width: 100%;
-                        background-color: #16202b;
-
-                        li {
-                            padding: 0.8rem 0;
-
-                            a {
-                                text-align: center;
-                                padding: 0.4rem 0;
+                            &:visited {
+                                color: white;
                             }
                         }
                     }
-                }
 
-                .language {
-                    li {
-                        text-align: center;
+                    .home {
+                        padding: 0.6rem 1.3rem;
+
+                        a {
+                            padding: 0.4rem;
+                        }
+                    }
+
+                    .search {
+                        display: flex;
+                        flex-grow: 1;
+
+                        &:hover {
+                            .input-container {
+                                input {
+                                    background-color: #212b36;
+                                }
+                            }
+                        }
+
+                        .input-container {
+                            &:hover {
+                                input {
+                                    // background-color: #212b36;
+
+                                    &::placeholder {
+                                        visibility: visible;
+                                    }
+                                }
+
+                                .bottom-line {
+                                    transform: scale(1);
+                                }
+                            }
+                        }
+
+                        .input-container {
+                            flex-grow: 1;
+                            position: relative;
+
+                            &:focus-within {
+                                input {
+                                    background-color: #212b36;
+
+                                    &::placeholder {
+                                        visibility: visible;
+                                    }
+                                }
+
+                                .bottom-line {
+                                    transform: scale(1);
+                                }
+                            }
+
+                            .bottom-line {
+                                position: absolute;
+                                top: 100%;
+                                left: 0;
+                                width: 100%;
+                                height: 1px;
+                                background-color: white;
+                                transform: scale(0);
+                                transform-origin: left;
+                                transition: transform 0.3s ease-out;
+                            }
+
+                            input {
+                                width: 100%;
+                                flex-grow: 1;
+                                outline: none;
+                                border: none;
+                                border-radius: 3px;
+                                padding: 0.4rem;
+                                font-size: 1.1rem;
+                                color: white;
+                                background-color: #16202b;
+                                text-align: left;
+                                transition: background-color 0.1s;
+
+                                &::placeholder {
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+
+                        button {
+                            border: none;
+                            padding: 0.4rem 0.8rem;
+                            font-size: 1.07rem;
+                            color: white;
+                            background-color: #16202b;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .genres,
+                    .language {
+                        position: relative;
+                        padding: 1rem 1.7rem;
+
+                        &:hover {
+                            ul {
+                                display: block;
+                            }
+                        }
+
+                        ul {
+                            display: none;
+                            position: absolute;
+                            top: 100%;
+                            left: 0;
+                            width: 100%;
+                            background-color: #16202b;
+
+                            li {
+                                padding: 0.8rem 0;
+
+                                a {
+                                    text-align: center;
+                                    padding: 0.4rem 0;
+                                }
+                            }
+                        }
+                    }
+
+                    .language {
+                        li {
+                            text-align: center;
+                        }
                     }
                 }
             }

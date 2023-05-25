@@ -16,8 +16,11 @@ export class HeaderComponent {
 
   @ViewChild('mobileSearchInput') mobileSearchInput: ElementRef = new ElementRef('');
   @ViewChild('mobileSearchResultsBox') mobileSearchResultsBox: ElementRef = new ElementRef('');
+  @ViewChild('desktopSearchInput') desktopSearchInput: ElementRef = new ElementRef('');
+  @ViewChild('desktopSearchResultsBox') desktopSearchResultsBox: ElementRef = new ElementRef('');
 
-  mobileSearchResults: IStorySearchIndex[] = [] as IStorySearchIndex[];
+  searchResults: IStorySearchIndex[] = [] as IStorySearchIndex[];
+  desktopSearchResults: IStorySearchIndex[] = [] as IStorySearchIndex[];
   noSearchResults: boolean = false;
   previousResultsLength: number = 0;
 
@@ -62,9 +65,12 @@ export class HeaderComponent {
 
     // Remove previous show-1 show-2 or show-3 classes
     this.renderer.removeClass(this.mobileSearchResultsBox.nativeElement, 'show-' + this.previousResultsLength);
+    this.renderer.removeClass(this.desktopSearchResultsBox.nativeElement, 'show-' + this.previousResultsLength);
 
     this.renderer.addClass(this.mobileSearchResultsBox.nativeElement, 'show');
     this.renderer.addClass(this.mobileSearchResultsBox.nativeElement, 'show-' + rowsShown);
+    this.renderer.addClass(this.desktopSearchResultsBox.nativeElement, 'show');
+    this.renderer.addClass(this.desktopSearchResultsBox.nativeElement, 'show-' + rowsShown);
 
     this.previousResultsLength = rowsShown;
   }
@@ -74,6 +80,7 @@ export class HeaderComponent {
    */
   hideSearchResultsBox(): void {
     this.renderer.removeClass(this.mobileSearchResultsBox.nativeElement, 'show');
+    this.renderer.removeClass(this.desktopSearchResultsBox.nativeElement, 'show');
   }
 
   /**
@@ -88,13 +95,14 @@ export class HeaderComponent {
     // If there is nothing written on input, hide results box
     if (searchText === '') {
       this.noSearchResults = false;
-      this.mobileSearchResults = [];
+      this.searchResults = [];
+      this.desktopSearchResults = [];
       this.hideSearchResultsBox();
       return;
     }
 
     // Search stories by title and spanish genre (genre_es)
-    this.mobileSearchResults = storiesSearchIndex.filter(story => {
+    this.searchResults = storiesSearchIndex.filter(story => {
       if (story.title.toLowerCase().includes(searchText)
         || story.genre_es.toLowerCase().includes(searchText)) {
         return true;
@@ -104,16 +112,44 @@ export class HeaderComponent {
     })
 
     // Case: No story is found
-    if (this.mobileSearchResults.length === 0) {
+    if (this.searchResults.length === 0) {
       this.noSearchResults = true;
       this.showSearchResultsBox(1); // For showing 'no results found' text
 
       // Case: Found one or more stories
     } else {
       this.noSearchResults = false;
-      this.showSearchResultsBox(this.mobileSearchResults.length); // For showing search results
+      this.showSearchResultsBox(this.searchResults.length); // For showing search results
     }
 
+  }
+
+  /**
+   * Load selected story from search results
+   * 
+   * @param story story to load
+   */
+  onLoadSearchedStory(story: IStorySearchIndex): void {
+    // Clear search input
+    this.renderer.setProperty(this.mobileSearchInput.nativeElement, 'value', '');
+    this.renderer.setProperty(this.desktopSearchInput.nativeElement, 'value', '');
+
+    // Navigate to selected story
+    this.router.navigate(['genres', story.genre, story.story_id]);
+
+    // TODO: Arreglar que no haga nada cuando hacemos click en la misma historia en la que ya estamos
+  }
+
+  /**
+   * Set focus on search input
+   */
+  setSearchInputFocus(device: string = 'mobile'): void {
+
+    if (device === 'mobile') {
+      this.mobileSearchInput.nativeElement.focus();
+    } else if (device === 'desktop') {
+      this.desktopSearchInput.nativeElement.focus();
+    }
   }
 
 }
