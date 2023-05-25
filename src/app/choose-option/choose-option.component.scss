@@ -2,11 +2,13 @@
     display: grid;
     width: 100%;
     padding: 1rem;
+    padding-bottom: 3rem;
     grid-template-columns: 50% 50%;
     grid-template-areas:
-        "choose-option  choose-option"
-        "imageA         imageB"
-        "textA          textB";
+        "choose-option    choose-option"
+        "option-letter-a  option-letter-b"
+        "imageA           imageB"
+        "textA            textB";
 
     p {
         color: white;
@@ -18,9 +20,60 @@
 
     .choose-option {
         font-size: 1.4rem;
-        margin-bottom: 2rem;
         text-align: center;
         grid-area: choose-option;
+    }
+
+    .option-letter-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+        font-size: 1.2rem;
+        margin: 1rem auto;
+        margin-bottom: 2rem;
+        position: relative;
+        left: -0.25rem;
+        color: #c6974d;
+        border: 2px solid #c6974d;
+        border-radius: 50%;
+
+        &.letter-a {
+            grid-area: option-letter-a;
+        }
+
+        &.letter-b {
+            grid-area: option-letter-b;
+        }
+    }
+
+    .option-letter-desktop {
+        display: none;
+    }
+
+    .option-text-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(100% - 0.5rem);
+
+        p {
+            /* Option text */
+            &:last-child {
+                margin: 0;
+                padding: 1rem;
+                border: 2px solid transparent;
+                border-radius: 1rem;
+                transition: border 0.2s ease-out;
+            }
+
+            &.active-option {
+                border-color: #c6974d;
+            }
+        }
     }
 
     .image-container {
@@ -29,6 +82,7 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        transition: border 0.2s ease-out;
 
         &.desktop {
             display: none;
@@ -59,6 +113,8 @@
             position: relative;
             border-top-right-radius: 1rem;
             border-bottom-left-radius: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 5px 0 #111111;
 
             &:first-of-type {
                 grid-area: imageA;
@@ -83,6 +139,7 @@
 
         &.active-option {
             border-color: #c6974d;
+            box-shadow: none;
 
             img {
                 transition: transform 0.3s ease-out;
@@ -106,9 +163,18 @@
         grid-template-areas:
             "choose-option  choose-option  choose-option  choose-option"
             "textA          textB          imageA         imageB";
+        padding-bottom: 1rem;
 
         p {
             align-self: center;
+        }
+
+        .option-letter-mobile {
+            display: none;
+        }
+
+        .option-letter-desktop {
+            display: block;
         }
 
         .image-container {
@@ -117,6 +183,13 @@
                 width: 12rem;
                 height: 12rem;
                 box-shadow: 3px 3px 10px 0 #000000;
+
+                &:hover {
+                    img {
+                        transition: transform 0.6s ease-out;
+                        transform: scale(1.05);
+                    }
+                }
             }
 
             &.mobile {
@@ -124,9 +197,46 @@
             }
         }
 
-        .text-a,
-        .text-b {
-            text-align: left;
+        .option-text-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-top: 7rem;
+
+            p {
+                &:hover {
+                    &:last-child {
+                        border-color: #c6974d;
+                    }
+                }
+
+                /* Option letter A or B */
+                &:first-child {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 2rem;
+                    height: 2rem;
+                    min-width: 2rem;
+                    min-height: 2rem;
+                    font-size: 1.2rem;
+                    color: #c6974d;
+                    border: 2px solid #c6974d;
+                    border-radius: 50%;
+                }
+
+                /* Option text */
+                &:last-child {
+                    margin: 0;
+                    padding: 1rem;
+                    border: 2px solid transparent;
+                    border-radius: 1rem;
+                    transition: border 0.2s ease-out;
+                }
+
+                &.active-option {
+                    border-color: #c6974d;
+                }
+            }
         }
     }
 }

@@ -2,20 +2,32 @@
     <p class="choose-option">Elige una opción</p>
 
     <!-- Option A -->
+    <p class="option-letter-mobile letter-a" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
     <div class="image-container desktop" (click)="selectOption(optionA, 'A')" title="Opción A" #desktopImageA>
         <img class="image-a" [src]="optionA?.image_desktop" [alt]="optionA?.optionText">
     </div>
     <div class="image-container mobile" (click)="selectOption(optionA, 'A')" title="Opción A" #mobileImageA>
         <img class="image-a" [src]="optionA?.image_mobile" [alt]="optionA?.optionText">
     </div>
-    <p class="text-a" (click)="selectOption(optionA, 'A')" title="Opción A">{{optionA?.optionText || 'Option A'}}</p>
+    <div class="option-text-wrapper text-a">
+        <p class="option-letter-desktop" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
+        <p (click)="selectOption(optionA, 'A')" [title]="optionA?.optionText" #optionTextA>{{optionA?.optionText ||
+            'Option A'}}
+        </p>
+    </div>
 
     <!-- Option B -->
+    <p class="option-letter-mobile letter-b" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
     <div class="image-container desktop" (click)="selectOption(optionB, 'B')" title="Opción B" #desktopImageB>
         <img class="image-b" [src]="optionB?.image_desktop" [alt]="optionB?.optionText">
     </div>
     <div class="image-container mobile" (click)="selectOption(optionB, 'B')" title="Opción B" #mobileImageB>
         <img class="image-b" [src]="optionB?.image_mobile" [alt]="optionB?.optionText">
     </div>
-    <p class="text-b" (click)="selectOption(optionB, 'B')" title="Opción B">{{optionB?.optionText || 'Option B'}}</p>
+    <div class="option-text-wrapper text-b">
+        <p class="option-letter-desktop" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
+        <p (click)="selectOption(optionB, 'B')" [title]="optionB?.optionText" #optionTextB>{{optionB?.optionText ||
+            'Option B'}}
+        </p>
+    </div>
 </div>
