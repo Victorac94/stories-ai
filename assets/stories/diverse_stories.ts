@@ -3,6 +3,7 @@ import { IStory } from "src/interfaces/story";
 export const diverseStories: IStory[] = [
     {
         genre: 'diverse',
+        genre_es: 'Variado',
         id: 1,
         title: 'Los Cuclillos de Midwich',
         thumbnail: 'assets/images/los_cuclillos_de_midwich/thumbnail.webp',
@@ -51,6 +52,7 @@ export const diverseStories: IStory[] = [
     },
     {
         genre: 'diverse',
+        genre_es: 'Variado',
         id: 2,
         title: 'Zack, la superchinchilla',
         thumbnail: 'assets/images/zack_la_superchinchilla/thumbnail.webp',
