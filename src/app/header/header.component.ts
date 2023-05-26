@@ -1,7 +1,8 @@
-import { Component, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer2, OnDestroy } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { storiesSearchIndex } from 'src/assets/stories/storiesSearchIndex';
+import { storiesSearchIndex } from 'src/assets/utils/stories_search_index';
 import { IStorySearchIndex } from 'src/interfaces/storySearchIndex';
 
 @Component({
@@ -9,7 +10,7 @@ import { IStorySearchIndex } from 'src/interfaces/storySearchIndex';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
 
   @ViewChild('mobileHeader') mobileHeader: ElementRef = new ElementRef('');
   @ViewChild('mobileHeaderBackdrop') mobileHeaderBackdrop: ElementRef = new ElementRef('');
@@ -24,6 +25,8 @@ export class HeaderComponent {
   noSearchResults: boolean = false;
   previousResultsLength: number = 0;
 
+  routerEventsSubscription: Subscription = new Subscription();
+
   constructor(
     private router: Router,
     private renderer: Renderer2
@@ -33,6 +36,10 @@ export class HeaderComponent {
         this.hideMobileMenu();
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.routerEventsSubscription.unsubscribe();
   }
 
   showMobileMenu(): void {
@@ -89,7 +96,6 @@ export class HeaderComponent {
    * @param searchText text to search stories by
    */
   searchStory(searchText: string): void {
-    console.log('inputEvent ', searchText);
     searchText = searchText.trim().toLowerCase();
 
     // If there is nothing written on input, hide results box
@@ -101,9 +107,10 @@ export class HeaderComponent {
       return;
     }
 
-    // Search stories by title and spanish genre (genre_es)
+    // Search stories by title, english genre and spanish genre
     this.searchResults = storiesSearchIndex.filter(story => {
       if (story.title.toLowerCase().includes(searchText)
+        || story.genre.toLowerCase().includes(searchText)
         || story.genre_es.toLowerCase().includes(searchText)) {
         return true;
       }

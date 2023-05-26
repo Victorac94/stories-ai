@@ -17,4 +17,10 @@ export const storiesSearchIndex = [
         genre_es: 'espacio',
         story_id: 1
     },
+    {
+        title: 'La Sombra',
+        genre: 'horror',
+        genre_es: 'terror',
+        story_id: 1
+    },
 ]

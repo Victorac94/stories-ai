@@ -3,6 +3,7 @@ import { IStory } from "src/interfaces/story";
 export const spaceStories: IStory[] = [
     {
         genre: 'space',
+        genre_es: 'Espacio',
         id: 1,
         title: 'La esfera negra',
         thumbnail: 'assets/images/la_esfera_negra/thumbnail.webp',

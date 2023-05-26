@@ -1,5 +1,6 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { IStory } from 'src/interfaces/story';
 import { IStoryOption } from 'src/interfaces/storyOption';
@@ -8,13 +9,14 @@ import { AuxiliaryService } from '../auxiliary.service';
 
 import { diverseStories } from 'src/assets/stories/diverse_stories';
 import { spaceStories } from 'src/assets/stories/space_stories';
+import { horrorStories } from 'src/assets/stories/horror_stories';
 
 @Component({
   selector: 'app-story-page',
   templateUrl: './story-page.component.html',
   styleUrls: ['./story-page.component.scss']
 })
-export class StoryPageComponent implements OnInit {
+export class StoryPageComponent implements OnInit, OnDestroy {
 
   story: IStory | undefined = undefined;
   storyId: number = 1;
@@ -22,6 +24,8 @@ export class StoryPageComponent implements OnInit {
   selectedSecondaryChooseOption: IStoryOption = {} as IStoryOption;
   isPrimaryChooseOptionSelected: boolean = false;
   isSecondaryChooseOptionSelected: boolean = false;
+
+  routerEventsSubscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -33,11 +37,15 @@ export class StoryPageComponent implements OnInit {
     this.loadStory();
 
     // Used when user selects a story from search results
-    this.router.events.subscribe(e => {
+    this.routerEventsSubscription = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         this.restartStory(true, 'instant' as ScrollBehavior);
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.routerEventsSubscription.unsubscribe();
   }
 
   /**
@@ -55,8 +63,8 @@ export class StoryPageComponent implements OnInit {
       case 'desert':
         this.story = this.loadStoryData(diverseStories, storyId, genre);
         break;
-      case 'terror':
-        this.story = this.loadStoryData(diverseStories, storyId, genre);
+      case 'horror':
+        this.story = this.loadStoryData(horrorStories, storyId, genre);
         break;
       case 'diverse':
         this.story = this.loadStoryData(diverseStories, storyId, genre);

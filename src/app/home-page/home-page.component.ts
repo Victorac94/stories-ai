@@ -19,11 +19,11 @@ export class HomePageComponent implements OnInit {
     //   image: 'assets/images/genre_thumbnails/genre_2.webp',
     //   link: '/genres/desert'
     // },
-    // {
-    //   name: 'Terror',
-    //   image: 'assets/images/genre_thumbnails/genre_3.webp',
-    //   link: '/genres/terror'
-    // },
+    {
+      name: 'Terror',
+      image: 'assets/images/genre_thumbnails/genre_3.webp',
+      link: '/genres/horror'
+    },
     {
       name: 'Variado',
       image: 'assets/images/genre_thumbnails/genre_4.webp',

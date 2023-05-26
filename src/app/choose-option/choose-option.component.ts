@@ -1,13 +1,14 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
 import { IStoryOption } from 'src/interfaces/storyOption';
 import { AuxiliaryService } from '../auxiliary.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-choose-option',
   templateUrl: './choose-option.component.html',
   styleUrls: ['./choose-option.component.scss']
 })
-export class ChooseOptionComponent implements OnInit {
+export class ChooseOptionComponent implements OnInit, OnDestroy {
 
   @Input() optionA: IStoryOption | undefined = {} as IStoryOption;
   @Input() optionB: IStoryOption | undefined = {} as IStoryOption;
@@ -22,6 +23,9 @@ export class ChooseOptionComponent implements OnInit {
   @ViewChild('optionTextA') optionTextA: ElementRef = new ElementRef('');
   @ViewChild('optionTextB') optionTextB: ElementRef = new ElementRef('');
 
+  removeChooseOptionsStylesSubscription: Subscription = new Subscription();
+  restartSubscription: Subscription = new Subscription();
+
   constructor(
     private renderer: Renderer2,
     private auxiliaryService: AuxiliaryService
@@ -31,7 +35,7 @@ export class ChooseOptionComponent implements OnInit {
 
   ngOnInit(): void {
     // Remove active-option class when user is restarting the story
-    this.auxiliaryService.restart.subscribe((restarting: boolean) => {
+    this.restartSubscription = this.auxiliaryService.restart.subscribe((restarting: boolean) => {
       if (restarting === true) {
         this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
         this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
@@ -42,7 +46,7 @@ export class ChooseOptionComponent implements OnInit {
       }
     })
 
-    this.auxiliaryService.removeChooseOptionStyles.subscribe((chooseOption: string) => {
+    this.removeChooseOptionsStylesSubscription = this.auxiliaryService.removeChooseOptionStyles.subscribe((chooseOption: string) => {
       // Remove active styles from selected choose options
       // chooseOption is either 'primary' or 'secondary
       if (this.chooseOption === chooseOption) {
@@ -54,6 +58,11 @@ export class ChooseOptionComponent implements OnInit {
         this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.restartSubscription.unsubscribe();
+    this.removeChooseOptionsStylesSubscription.unsubscribe();
   }
 
   /**
