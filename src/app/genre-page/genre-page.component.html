@@ -1,6 +1,8 @@
 <div class="hero-container">
-    <img class="mobile" src="assets/images/hero_images/sci_fi_1_midjourney.webp" alt="Open book image">
-    <img class="desktop" src="assets/images/hero_images/open_book_1_midjourney.webp" alt="Open book image">
+    <!-- <img class="mobile" src="assets/images/hero_images/sci_fi_1_midjourney.webp" alt="Open book image"> -->
+    <img class="mobile" [src]="mobileHeroImage" alt="Open book image">
+    <!-- <img class="desktop" src="assets/images/hero_images/open_book_1_midjourney.webp" alt="Open book image"> -->
+    <img class="desktop" [src]="desktopHeroImage" alt="Open book image">
     <h2>{{this.genre}}</h2>
 </div>
 <div class="stories-container">

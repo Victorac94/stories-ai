@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 import { IStory } from 'src/interfaces/story';
 
 import { diverseStories } from 'src/assets/stories/diverse_stories';
 import { spaceStories } from 'src/assets/stories/space_stories';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-genre-page',
@@ -17,6 +17,9 @@ export class GenrePageComponent implements OnInit, OnDestroy {
   stories: IStory[] = [] as IStory[];
   genre: string = '';
   genreChangeSubscription: Subscription = new Subscription();
+
+  desktopHeroImage: string = 'assets/images/hero_images/space_desktop_hero.webp';
+  mobileHeroImage: string = 'assets/images/hero_images/space_desktop_hero.webp';
 
   constructor(
     private router: Router
@@ -52,15 +55,23 @@ export class GenrePageComponent implements OnInit, OnDestroy {
     switch (genre) {
       case 'space':
         this.stories = spaceStories;
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
         break;
       case 'desert':
         this.stories = diverseStories;
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
         break;
       case 'terror':
         this.stories = diverseStories;
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
         break;
       case 'diverse':
         this.stories = diverseStories;
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
         break;
     }
   }
