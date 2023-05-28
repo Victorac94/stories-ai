@@ -11,7 +11,7 @@ export class HomePageComponent implements OnInit {
   genres: any[] = [
     {
       name: 'Espacio',
-      image: 'assets/images/genre_thumbnails/genre_1.webp',
+      image: 'assets/images/genre_thumbnails/space_thumbnail_genre.webp',
       link: '/genres/space'
     },
     // {
@@ -21,12 +21,12 @@ export class HomePageComponent implements OnInit {
     // },
     {
       name: 'Terror',
-      image: 'assets/images/genre_thumbnails/genre_3.webp',
+      image: 'assets/images/genre_thumbnails/horror_thumbnail_genre.webp',
       link: '/genres/horror'
     },
     {
       name: 'Variado',
-      image: 'assets/images/genre_thumbnails/genre_4.webp',
+      image: 'assets/images/genre_thumbnails/diverse_thumbnail_genre.webp',
       link: '/genres/diverse'
     },
   ]

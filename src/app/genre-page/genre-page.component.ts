@@ -79,8 +79,8 @@ export class GenrePageComponent implements OnInit, OnDestroy {
         break;
       case 'diverse':
         this.stories = diverseStories;
-        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
-        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.desktopHeroImage = 'assets/images/hero_images/diverse_desktop_hero.webp';
+        this.mobileHeroImage = 'assets/images/hero_images/diverse_mobile_hero.webp';
         break;
     }
   }
