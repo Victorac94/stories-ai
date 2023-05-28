@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -16,7 +16,9 @@ import { horrorStories } from 'src/assets/stories/horror_stories';
   templateUrl: './story-page.component.html',
   styleUrls: ['./story-page.component.scss']
 })
-export class StoryPageComponent implements OnInit, OnDestroy {
+export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('container') container: ElementRef = new ElementRef('');
 
   story: IStory | undefined = undefined;
   storyId: number = 1;
@@ -29,7 +31,8 @@ export class StoryPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private auxiliaryService: AuxiliaryService
+    private auxiliaryService: AuxiliaryService,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -40,8 +43,13 @@ export class StoryPageComponent implements OnInit, OnDestroy {
     this.routerEventsSubscription = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
         this.restartStory(true, 'instant' as ScrollBehavior);
+        this.setPageBackgroundImage();
       }
     })
+  }
+
+  ngAfterViewInit() {
+    this.setPageBackgroundImage();
   }
 
   ngOnDestroy() {
@@ -139,6 +147,15 @@ export class StoryPageComponent implements OnInit, OnDestroy {
       top: 0,
       behavior: scrollBehavior
     })
+  }
+
+  /**
+   * Sets the background image of the current page depending on the current story. It selects the main story's image.
+   * Only viewed on desktop devices
+   */
+  setPageBackgroundImage(): void {
+    // Set the background image of the page.
+    this.renderer.setStyle(this.container.nativeElement, 'background-image', `url('${this.story?.rootStory.image_desktop}')`);
   }
 
   /**
