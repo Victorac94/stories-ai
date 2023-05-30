@@ -11,8 +11,9 @@
     </div>
     <div class="option-text-wrapper text-a">
         <p class="option-letter-desktop" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
-        <p (click)="selectOption(optionA, 'A')" [title]="optionA?.optionText" #optionTextA>{{optionA?.optionText ||
-            'Option A'}}
+        <p (click)="selectOption(optionA, 'A')" [title]="optionA?.optionText" tabindex="0" #optionTextA>
+            {{optionA?.optionText ||
+            'Opción A'}}
         </p>
     </div>
 
@@ -26,8 +27,9 @@
     </div>
     <div class="option-text-wrapper text-b">
         <p class="option-letter-desktop" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
-        <p (click)="selectOption(optionB, 'B')" [title]="optionB?.optionText" #optionTextB>{{optionB?.optionText ||
-            'Option B'}}
+        <p (click)="selectOption(optionB, 'B')" [title]="optionB?.optionText" tabindex="0" #optionTextB>
+            {{optionB?.optionText ||
+            'Opción B'}}
         </p>
     </div>
 </div>
