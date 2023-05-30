@@ -62,7 +62,7 @@
     <!-- Search results box -->
     <div class="desktop-header-search-results" #desktopSearchResultsBox>
         <div class="desktop-search-item" *ngFor="let item of searchResults" (click)="onLoadSearchedStory(item)"
-            [title]="item.title">
+            [title]="item.title" tabindex="0" (keydown)="onSearchItemKeydown($event, item)" #desktopSearchItem>
             <p [ngClass]="['genre', item.genre]">{{item.genre_es}}</p>
             <p>{{item.title}}</p>
         </div>
@@ -77,30 +77,30 @@
         <nav>
             <ul>
                 <li class="home">
-                    <a routerLink="/home">Inicio</a>
+                    <a routerLink="/home" tabindex="0">Inicio</a>
                 </li>
                 <li class="search">
                     <div class="input-container">
                         <input type="search" (input)="searchStory(desktopSearchInput.value)"
-                            placeholder="Busca por título o género..." #desktopSearchInput>
+                            placeholder="Busca por título o género..." tabindex="0" #desktopSearchInput>
                         <div class="bottom-line"></div>
                     </div>
-                    <button (click)="setSearchInputFocus('desktop')">Buscar</button>
+                    <button (click)="setSearchInputFocus('desktop')" tabindex="0">Buscar</button>
                 </li>
-                <li class="genres">
+                <li class="genres" tabindex="0" #genres>
                     Géneros
                     <ul>
                         <li>
-                            <a routerLink="/genres/space">Espacio</a>
+                            <a routerLink="/genres/space" #genreName>Espacio</a>
                         </li>
                         <!-- <li>
-                            <a routerLink="/genres/desert">Desierto</a>
+                            <a routerLink="/genres/desert" #genreName>Desierto</a>
                         </li> -->
                         <li>
-                            <a routerLink="/genres/horror">Terror</a>
+                            <a routerLink="/genres/horror" #genreName>Terror</a>
                         </li>
                         <li>
-                            <a routerLink="/genres/diverse">Variado</a>
+                            <a routerLink="/genres/diverse" #genreName>Variado</a>
                         </li>
                     </ul>
                 </li>

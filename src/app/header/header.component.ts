@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Renderer2, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer2, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -19,11 +19,17 @@ export class HeaderComponent implements OnDestroy {
   @ViewChild('mobileSearchResultsBox') mobileSearchResultsBox: ElementRef = new ElementRef('');
   @ViewChild('desktopSearchInput') desktopSearchInput: ElementRef = new ElementRef('');
   @ViewChild('desktopSearchResultsBox') desktopSearchResultsBox: ElementRef = new ElementRef('');
+  @ViewChildren('desktopSearchItem') desktopSearchItems: QueryList<ElementRef> = new QueryList<ElementRef>()
+
+  @ViewChild('genres') menuGenres: ElementRef = new ElementRef('');
+  @ViewChildren('genreName') menuGenreNames: QueryList<ElementRef> = new QueryList<ElementRef>();
 
   searchResults: IStorySearchIndex[] = [] as IStorySearchIndex[];
-  desktopSearchResults: IStorySearchIndex[] = [] as IStorySearchIndex[];
+  searchResultsFocusIndex: number = -1;
   noSearchResults: boolean = false;
   previousResultsLength: number = 0;
+
+  menuGenresFocusIndex: number = -1;
 
   routerEventsSubscription: Subscription = new Subscription();
 
@@ -36,6 +42,153 @@ export class HeaderComponent implements OnDestroy {
         this.hideMobileMenu();
       }
     })
+  }
+
+  @HostListener('document:keydown', ['$event']) onHandleKeyDown($event: KeyboardEvent) {
+
+    // #########################################
+    // ############## MENU SEARCH ##############
+    // #########################################
+
+    // If focus is on search input or on search results dropdown list
+    if (this.desktopSearchInput.nativeElement.contains(document.activeElement)
+      || this.desktopSearchResultsBox.nativeElement.contains(document.activeElement)) {
+
+      if ($event.code === 'ArrowDown' || $event.code === 'ArrowUp') {
+        $event.preventDefault();
+
+        // Move focus to the NEXT element
+        if ($event.code === 'ArrowDown') {
+
+          // To search input
+          if (this.searchResultsFocusIndex >= this.desktopSearchItems.length - 1) {
+            this.desktopSearchInput.nativeElement.focus();
+            this.searchResultsFocusIndex = -1;
+            return;
+
+            // To first or next search result
+          } else {
+            this.searchResultsFocusIndex += 1;
+          }
+
+          // Move focus to the PREVIOUS element
+        } else if ($event.code === 'ArrowUp') {
+
+          // To search input
+          if (this.searchResultsFocusIndex === 0) {
+            this.desktopSearchInput.nativeElement.focus();
+            this.searchResultsFocusIndex = -1;
+            return;
+
+            // To last search result
+          } else if ($event.target === this.desktopSearchInput.nativeElement) {
+            this.searchResultsFocusIndex = this.desktopSearchItems.length - 1;
+
+            // To previous search result
+          } else {
+            this.searchResultsFocusIndex -= 1;
+          }
+        }
+
+        // Set focus to corresponding element
+        this.desktopSearchItems.toArray()[this.searchResultsFocusIndex].nativeElement.focus();
+        return;
+      }
+
+      // If user Tabs out of search input, clear search input and hide search results
+      if ($event.code === 'Tab' && this.desktopSearchInput.nativeElement.contains(document.activeElement)) {
+        this.clearSearchInput();
+        this.hideSearchResultsBox();
+        this.searchResultsFocusIndex = -1;
+
+        // If user Tabs on last search item or Shift+Tabs on first search item, move focus to search input
+      } else if (
+        ($event.code === 'Tab' && $event.shiftKey && $event.target === this.desktopSearchItems.toArray()[0].nativeElement)
+        ||
+        ($event.code === 'Tab' && !$event.shiftKey && $event.target === this.desktopSearchItems.toArray()[this.desktopSearchItems.length - 1].nativeElement)
+      ) {
+        this.desktopSearchInput.nativeElement.focus();
+        this.searchResultsFocusIndex = -1;
+        $event.preventDefault();
+      }
+    }
+
+    // #########################################
+    // ############## MENU GENRES ##############
+    // #########################################
+
+    if (this.menuGenres.nativeElement.contains(document.activeElement)) {
+
+      // Handle Tab key presses
+      // When Tabbing on last or first genre, move focus to next or previous focusable page element (away from menu genre names)
+      if (($event.code === 'Tab' && !$event.shiftKey && this.menuGenresFocusIndex === this.menuGenreNames.length - 1)
+        || ($event.code === 'Tab' && $event.shiftKey && this.menuGenresFocusIndex === 0)) {
+        this.menuGenresFocusIndex = -1;
+        return;
+        // Move focus to next genre name
+      } else if ($event.code === 'Tab' && !$event.shiftKey) {
+        this.menuGenresFocusIndex += 1;
+        return;
+        // Move focus to previous genre name or reset genres focus index
+      } else if ($event.code === 'Tab' && $event.shiftKey) {
+        this.menuGenresFocusIndex -= this.menuGenresFocusIndex === -1 ? 0 : -1;
+        return;
+      }
+
+      // Handle ArrowDown and ArrowUp on menu genres
+      if ($event.code === 'ArrowDown' || $event.code === 'ArrowUp') {
+        $event.preventDefault();
+
+        // Move focus to the NEXT element
+        if ($event.code === 'ArrowDown') {
+          // To genres dropdown element
+          if (this.menuGenresFocusIndex >= this.menuGenreNames.length - 1) {
+            this.menuGenres.nativeElement.focus();
+            this.menuGenresFocusIndex = -1;
+            return;
+
+            // To next genre name
+          } else {
+            this.menuGenresFocusIndex += 1;
+          }
+
+          // Move focus to the PREVIOUS element
+        } else if ($event.code === 'ArrowUp') {
+          // To genres dropdown element
+          if (this.menuGenresFocusIndex === 0) {
+            this.menuGenres.nativeElement.focus();
+            this.menuGenresFocusIndex = -1;
+            return;
+
+            // To last genre name
+          } else if (this.menuGenres.nativeElement === $event.target) {
+            this.menuGenresFocusIndex = this.menuGenreNames.length - 1;
+            // To previous genre name
+          } else {
+            this.menuGenresFocusIndex -= 1;
+          }
+        }
+
+        // Set focus to corresponding genre name
+        this.menuGenreNames.toArray()[this.menuGenresFocusIndex].nativeElement.focus();
+      }
+    }
+  }
+
+  /**
+   * Load selected story from search items
+   * 
+   * @param $event When keyboard event is 'Enter', load selected story
+   * @param searchItem Story to load
+   */
+  onSearchItemKeydown($event: KeyboardEvent, searchItem: IStorySearchIndex) {
+    if ($event.code === 'Enter') {
+      this.hideSearchResultsBox();
+      this.onLoadSearchedStory(searchItem);
+      this.noSearchResults = false;
+      this.searchResults = [];
+    }
+
   }
 
   ngOnDestroy(): void {
@@ -88,6 +241,7 @@ export class HeaderComponent implements OnDestroy {
   hideSearchResultsBox(): void {
     this.renderer.removeClass(this.mobileSearchResultsBox.nativeElement, 'show');
     this.renderer.removeClass(this.desktopSearchResultsBox.nativeElement, 'show');
+    this.searchResultsFocusIndex = -1;
   }
 
   /**
@@ -102,7 +256,6 @@ export class HeaderComponent implements OnDestroy {
     if (searchText === '') {
       this.noSearchResults = false;
       this.searchResults = [];
-      this.desktopSearchResults = [];
       this.hideSearchResultsBox();
       return;
     }
@@ -137,14 +290,11 @@ export class HeaderComponent implements OnDestroy {
    * @param story story to load
    */
   onLoadSearchedStory(story: IStorySearchIndex): void {
-    // Clear search input
-    this.renderer.setProperty(this.mobileSearchInput.nativeElement, 'value', '');
-    this.renderer.setProperty(this.desktopSearchInput.nativeElement, 'value', '');
+    this.clearSearchInput();
+    this.hideSearchResultsBox();
 
     // Navigate to selected story
     this.router.navigate(['genres', story.genre, story.story_id]);
-
-    // TODO: Arreglar que no haga nada cuando hacemos click en la misma historia en la que ya estamos
   }
 
   /**
@@ -157,6 +307,14 @@ export class HeaderComponent implements OnDestroy {
     } else if (device === 'desktop') {
       this.desktopSearchInput.nativeElement.focus();
     }
+  }
+
+  /**
+   * Clear search input value on both mobile and desktop input
+   */
+  clearSearchInput(): void {
+    this.renderer.setProperty(this.mobileSearchInput.nativeElement, 'value', '');
+    this.renderer.setProperty(this.desktopSearchInput.nativeElement, 'value', '');
   }
 
 }
