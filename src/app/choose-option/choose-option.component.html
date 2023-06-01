@@ -3,15 +3,25 @@
 
     <!-- Option A -->
     <p class="option-letter-mobile letter-a" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
-    <div class="image-container desktop" (click)="selectOption(optionA, 'A')" title="Opción A" #desktopImageA>
-        <img class="image-a" [src]="optionA?.image_desktop" [alt]="optionA?.optionText">
+    <div class="image-container desktop" (mouseenter)="onMouseEnterOption($event, 'A')"
+        (mouseleave)="onMouseLeaveOption($event, 'A')" (click)="selectOption(optionA, 'A')" title="Opción A"
+        #desktopImageA>
+        <div class="image-border-element"></div>
+        <div class="image-wrapper">
+            <img class="image-a" [src]="optionA?.image_desktop" [alt]="optionA?.optionText">
+        </div>
     </div>
     <div class="image-container mobile" (click)="selectOption(optionA, 'A')" title="Opción A" #mobileImageA>
-        <img class="image-a" [src]="optionA?.image_mobile" [alt]="optionA?.optionText">
+        <div class="image-border-element"></div>
+        <div class="image-wrapper">
+            <img class="image-a" [src]="optionA?.image_mobile" [alt]="optionA?.optionText">
+        </div>
     </div>
     <div class="option-text-wrapper text-a">
-        <p class="option-letter-desktop" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
-        <p (click)="selectOption(optionA, 'A')" [title]="optionA?.optionText" tabindex="0" #optionTextA>
+        <p class="option-letter-desktop" (mouseenter)="onMouseEnterOption($event, 'A')"
+            (mouseleave)="onMouseLeaveOption($event, 'A')" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
+        <p (mouseenter)="onMouseEnterOption($event, 'A')" (mouseleave)="onMouseLeaveOption($event, 'A')"
+            (click)="selectOption(optionA, 'A')" [title]="optionA?.optionText" tabindex="0" #optionTextA>
             {{optionA?.optionText ||
             'Opción A'}}
         </p>
@@ -19,15 +29,25 @@
 
     <!-- Option B -->
     <p class="option-letter-mobile letter-b" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
-    <div class="image-container desktop" (click)="selectOption(optionB, 'B')" title="Opción B" #desktopImageB>
-        <img class="image-b" [src]="optionB?.image_desktop" [alt]="optionB?.optionText">
+    <div class="image-container desktop" (mouseenter)="onMouseEnterOption($event, 'B')"
+        (mouseleave)="onMouseLeaveOption($event, 'B')" (click)="selectOption(optionB, 'B')" title="Opción B"
+        #desktopImageB>
+        <div class="image-border-element"></div>
+        <div class="image-wrapper">
+            <img class="image-b" [src]="optionB?.image_desktop" [alt]="optionB?.optionText">
+        </div>
     </div>
     <div class="image-container mobile" (click)="selectOption(optionB, 'B')" title="Opción B" #mobileImageB>
-        <img class="image-b" [src]="optionB?.image_mobile" [alt]="optionB?.optionText">
+        <div class="image-border-element"></div>
+        <div class="image-wrapper">
+            <img class="image-b" [src]="optionB?.image_mobile" [alt]="optionB?.optionText">
+        </div>
     </div>
     <div class="option-text-wrapper text-b">
-        <p class="option-letter-desktop" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
-        <p (click)="selectOption(optionB, 'B')" [title]="optionB?.optionText" tabindex="0" #optionTextB>
+        <p class="option-letter-desktop" (mouseenter)="onMouseEnterOption($event, 'B')"
+            (mouseleave)="onMouseLeaveOption($event, 'B')" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
+        <p (mouseenter)="onMouseEnterOption($event, 'B')" (mouseleave)="onMouseLeaveOption($event, 'B')"
+            (click)="selectOption(optionB, 'B')" [title]="optionB?.optionText" tabindex="0" #optionTextB>
             {{optionB?.optionText ||
             'Opción B'}}
         </p>

@@ -37,12 +37,7 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
     // Remove active-option class when user is restarting the story
     this.restartSubscription = this.auxiliaryService.restart.subscribe((restarting: boolean) => {
       if (restarting === true) {
-        this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
-        this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
-        this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
+        this.removeChooseOptionStyles();
       }
     })
 
@@ -50,12 +45,7 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
       // Remove active styles from selected choose options
       // chooseOption is either 'primary' or 'secondary
       if (this.chooseOption === chooseOption) {
-        this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
-        this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
-        this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
-        this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
+        this.removeChooseOptionStyles();
       }
     })
   }
@@ -63,6 +53,65 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.restartSubscription.unsubscribe();
     this.removeChooseOptionsStylesSubscription.unsubscribe();
+  }
+
+  /**
+   * Remove active styles (border and scale up) from options A and B
+   */
+  removeChooseOptionStyles(): void {
+    this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
+    this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
+    this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
+    this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
+    this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
+    this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
+
+    this.renderer.removeClass(this.desktopImageA.nativeElement, 'show-border');
+    this.renderer.removeClass(this.mobileImageA.nativeElement, 'show-border');
+    this.renderer.removeClass(this.desktopImageB.nativeElement, 'show-border');
+    this.renderer.removeClass(this.mobileImageB.nativeElement, 'show-border');
+  }
+
+  /**
+   * When mousing over an option, add corresponding styles to show user interacting with the option
+   * 
+   * @param $event the fired event object
+   * @param option option 'A' or 'B' mouse is hovering
+   */
+  onMouseEnterOption($event: Event, option: string): void {
+    if (option === 'A') {
+      this.renderer.addClass(this.desktopImageA.nativeElement, 'show-border');
+      this.renderer.addClass(this.mobileImageA.nativeElement, 'show-border');
+      this.renderer.addClass(this.optionTextA.nativeElement, 'active-option');
+
+    } else if (option === 'B') {
+      this.renderer.addClass(this.desktopImageB.nativeElement, 'show-border');
+      this.renderer.addClass(this.mobileImageB.nativeElement, 'show-border');
+      this.renderer.addClass(this.optionTextB.nativeElement, 'active-option');
+    }
+  }
+
+  /**
+   * When mousing out over an option, remove corresponding styles to show user interacting out of an option
+   * 
+   * @param $event the fired event object
+   * @param option option 'A' or 'B' mouse is leaving
+   */
+  onMouseLeaveOption($event: Event, option: string): void {
+    if (option === 'A') {
+      if (!this.desktopImageA.nativeElement.classList.contains('active-option')) {
+        this.renderer.removeClass(this.desktopImageA.nativeElement, 'show-border');
+        this.renderer.removeClass(this.mobileImageA.nativeElement, 'show-border');
+        this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
+      }
+
+    } else if (option === 'B') {
+      if (!this.desktopImageB.nativeElement.classList.contains('active-option')) {
+        this.renderer.removeClass(this.desktopImageB.nativeElement, 'show-border');
+        this.renderer.removeClass(this.mobileImageB.nativeElement, 'show-border');
+        this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
+      }
+    }
   }
 
   /**
@@ -80,9 +129,14 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
       this.renderer.addClass(this.desktopImageA.nativeElement, 'active-option');
       this.renderer.addClass(this.mobileImageA.nativeElement, 'active-option');
       this.renderer.addClass(this.optionTextA.nativeElement, 'active-option');
+      this.renderer.addClass(this.desktopImageA.nativeElement, 'show-border');
+      this.renderer.addClass(this.mobileImageA.nativeElement, 'show-border');
+
       this.renderer.removeClass(this.desktopImageB.nativeElement, 'active-option');
       this.renderer.removeClass(this.mobileImageB.nativeElement, 'active-option');
       this.renderer.removeClass(this.optionTextB.nativeElement, 'active-option');
+      this.renderer.removeClass(this.desktopImageB.nativeElement, 'show-border');
+      this.renderer.removeClass(this.mobileImageB.nativeElement, 'show-border');
 
       // If user selects option B
     } else if (chosenOption === 'B') {
@@ -90,9 +144,14 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
       this.renderer.addClass(this.desktopImageB.nativeElement, 'active-option');
       this.renderer.addClass(this.mobileImageB.nativeElement, 'active-option');
       this.renderer.addClass(this.optionTextB.nativeElement, 'active-option');
+      this.renderer.addClass(this.desktopImageB.nativeElement, 'show-border');
+      this.renderer.addClass(this.mobileImageB.nativeElement, 'show-border');
+
       this.renderer.removeClass(this.desktopImageA.nativeElement, 'active-option');
       this.renderer.removeClass(this.mobileImageA.nativeElement, 'active-option');
       this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
+      this.renderer.removeClass(this.desktopImageA.nativeElement, 'show-border');
+      this.renderer.removeClass(this.mobileImageA.nativeElement, 'show-border');
     }
   }
 
