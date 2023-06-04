@@ -1,3 +1,5 @@
+@use "../../vars.scss" as *;
+
 .container,
 .container-filter {
     width: 100%;
@@ -12,14 +14,14 @@
 
     h2 {
         font-size: 1.5rem;
-        color: white;
+        color: $white;
         padding: 1.5rem 1rem;
         text-align: center;
         background-color: #1f2c3b;
     }
 
     p {
-        color: white;
+        color: $text-color-main;
         margin: 1.5rem;
         line-height: 1.4rem;
         text-align: justify;
@@ -46,8 +48,8 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        margin: 1.5rem 1rem;
-        padding-bottom: 2rem;
+        padding: 1.5rem 1rem;
+        padding-bottom: 3rem;
 
         p {
             margin-top: 0.5rem;
@@ -56,7 +58,7 @@
 
         button {
             flex-grow: 1;
-            color: white;
+            color: $white;
             text-align: center;
             background: transparent;
             border: 1px solid #c6974d;
@@ -89,7 +91,34 @@
     }
 }
 
-@media screen and (min-width: 1000px) {
+/* ###########################################
+################ MEDIA QUERIES ############### 
+########################################### */
+
+@media screen and (min-width: $screen-md) {
+    .wrapper {
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+            line-height: 2rem;
+        }
+
+        .footer {
+            padding-left: 2rem;
+            padding-right: 2rem;
+            font-size: 1.6rem;
+
+            button {
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $screen-lg) {
     .container {
         background-size: cover;
         background-position: center;
@@ -110,6 +139,11 @@
         box-shadow: 0 0 10px 0 #000000;
         overflow: hidden;
         border-radius: 0.5rem;
+
+        p {
+            font-size: 1.3rem;
+            margin: 2rem;
+        }
 
         .image-mobile {
             display: none;

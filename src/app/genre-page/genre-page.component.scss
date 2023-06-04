@@ -1,3 +1,5 @@
+@use "../../vars.scss" as *;
+
 .hero-container {
     position: relative;
     animation: fadeIn 0.6s ease-out;
@@ -6,9 +8,14 @@
         width: 100%;
     }
 
+    .mobile {
+        min-width: 100vw;
+        min-height: calc(100vw * 16 / 9);
+    }
+
     h2 {
         font-size: 2.5rem;
-        color: white;
+        color: $white;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -38,7 +45,7 @@
         text-align: center;
         font-size: 1.4rem;
         padding: 2rem 0;
-        color: white;
+        color: $white;
     }
 
     app-story-thumbnail {
@@ -55,10 +62,37 @@
     }
 }
 
-@media screen and (min-width: 667px) {
+/* ###########################################
+################ MEDIA QUERIES ############### 
+########################################### */
+
+/* Screen small. 426px */
+@media screen and (min-width: $screen-sm) {
+    .stories-container {
+        h3 {
+            font-size: 2rem;
+        }
+
+        app-story-thumbnail {
+            flex-basis: 50%;
+        }
+    }
+}
+
+/* Screen medium. 769px */
+@media screen and (min-width: $screen-md) {
     .hero-container {
         h2 {
-            font-size: 1.8rem;
+            font-size: 4rem;
+        }
+    }
+}
+
+/* Screen large. 992px */
+@media screen and (min-width: $screen-lg) {
+    .hero-container {
+        h2 {
+            font-size: 5rem;
         }
 
         .mobile {
@@ -67,20 +101,8 @@
 
         .desktop {
             display: block;
-        }
-    }
-
-    .stories-container {
-        app-story-thumbnail {
-            flex-basis: 50%;
-        }
-    }
-}
-
-@media screen and (min-width: 820px) {
-    .hero-container {
-        h2 {
-            font-size: 2rem;
+            min-width: calc(100vw - 2rem); // -2rem for scrollbar width
+            min-height: calc((100vw - 2rem) * 9 / 16); // -2rem for scrollbar width
         }
     }
 
@@ -94,8 +116,8 @@
 @media screen and (min-width: 1000px) {
     .hero-container {
         h2 {
-            font-size: 3rem;
-            top: 40%;
+            // top: 40%;
+            transform: translate(-50%, calc(-50% - 2.5rem));
         }
     }
 

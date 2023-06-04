@@ -1,3 +1,5 @@
+@use "../../vars.scss" as *;
+
 .container {
     display: grid;
     width: 100%;
@@ -11,7 +13,7 @@
         "textA            textB";
 
     p {
-        color: white;
+        color: $white;
         margin: 1rem;
         text-align: center;
         line-height: 1.3rem;
@@ -20,6 +22,8 @@
 
     .choose-option {
         font-size: 1.4rem;
+        margin-top: 1.5rem;
+        margin-bottom: 2rem;
         text-align: center;
         grid-area: choose-option;
     }
@@ -47,6 +51,7 @@
 
         &.letter-b {
             grid-area: option-letter-b;
+            left: 0.25rem;
         }
     }
 
@@ -61,6 +66,8 @@
         width: calc(100% - 0.5rem);
 
         p {
+            color: $text-color-main;
+
             /* Option text */
             &:last-child {
                 margin: 0;
@@ -73,6 +80,15 @@
             &.active-option {
                 border-color: #c6974d;
             }
+        }
+
+        &.text-a {
+            grid-area: textA;
+        }
+
+        &.text-b {
+            grid-area: textB;
+            margin-left: auto;
         }
     }
 
@@ -134,11 +150,11 @@
                 }
             }
 
-            &:first-of-type {
+            &.desktop-image-a {
                 grid-area: imageA;
             }
 
-            &:last-of-type {
+            &.desktop-image-b {
                 grid-area: imageB;
             }
         }
@@ -158,11 +174,11 @@
                 border-bottom-left-radius: 1rem;
             }
 
-            &:first-of-type {
+            &.mobile-image-a {
                 grid-area: imageA;
             }
 
-            &:last-of-type {
+            &.mobile-image-b {
                 grid-area: imageB;
                 margin-left: auto;
                 border-radius: 0;
@@ -201,13 +217,45 @@
             }
         }
     }
+}
 
-    .text-a {
-        grid-area: textA;
-    }
+/* ###########################################
+################ MEDIA QUERIES ############### 
+########################################### */
 
-    .text-b {
-        grid-area: textB;
+@media screen and (min-width: $screen-md) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+
+        p {
+            font-size: 1.2rem;
+        }
+
+        .choose-option {
+            margin-top: 2rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
+        }
+
+        .option-letter-mobile {
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.8rem;
+        }
+
+        .image-container {
+            &.mobile {
+                width: calc(100% - 1rem);
+            }
+        }
+
+        .option-text-wrapper {
+            p {
+                font-size: 1.4rem;
+                line-height: 2rem;
+            }
+        }
     }
 }
 
@@ -237,6 +285,8 @@
                 width: 12rem;
                 height: 12rem;
                 box-shadow: 3px 3px 10px 0 #000000;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             &.mobile {
@@ -247,7 +297,7 @@
         .option-text-wrapper {
             display: flex;
             flex-direction: column;
-            margin-top: 7rem;
+            margin-top: 4rem;
 
             p {
                 /* Option letter A or B */
@@ -277,6 +327,10 @@
                 &.active-option {
                     border-color: #c6974d;
                 }
+            }
+
+            &.text-b {
+                margin-left: 0;
             }
         }
     }

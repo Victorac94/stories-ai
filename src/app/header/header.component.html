@@ -25,7 +25,7 @@
 
         <!-- Menu -->
         <nav>
-            <div class="search">
+            <div class="search-container">
                 <a class="icon-home" routerLink="/home"></a>
 
                 <div class="input-container">
@@ -79,7 +79,7 @@
                 <li class="home">
                     <a routerLink="/home" tabindex="0">Inicio</a>
                 </li>
-                <li class="search">
+                <li class="search-container">
                     <div class="input-container">
                         <input type="search" (input)="searchStory(desktopSearchInput.value)"
                             placeholder="Busca por título o género..." tabindex="0" #desktopSearchInput>

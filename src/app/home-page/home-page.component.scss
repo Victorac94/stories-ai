@@ -1,3 +1,5 @@
+@use "../../vars.scss" as *;
+
 .container {
     padding-bottom: 5rem;
 }
@@ -11,6 +13,11 @@
         width: 100%;
     }
 
+    .mobile {
+        min-width: 100vw;
+        min-height: calc(100vw * 16 / 9);
+    }
+
     .desktop {
         display: none;
     }
@@ -22,7 +29,9 @@
         left: 50%;
         transform: translate(-50%, calc(-50% - 2.5rem));
         padding: 4rem;
-        color: white;
+        color: $white;
+        font-family: "Varela Round", sans-serif;
+        font-weight: 400;
         font-size: 2.5rem;
         text-align: center;
         text-shadow: 0 0 10px #16202b, 0 0 10px #16202b;
@@ -34,9 +43,11 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        color: white;
+        color: $text-color-main;
         width: 100%;
         padding: 3rem;
+        font-family: "Varela Round", sans-serif;
+        font-weight: 400;
         font-size: 1.2rem;
         text-align: center;
         text-shadow: 0 0 10px #000000, 0 0 15px #000000;
@@ -46,16 +57,24 @@
     }
 }
 
+.page-description {
+    text-align: center;
+    color: $text-color-main;
+    margin: 5rem 2rem;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+}
+
 .genres-heading-section {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 2rem 1rem;
-    color: white;
+    color: $white;
 
     h3 {
         text-transform: uppercase;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
 
     hr {
@@ -89,56 +108,90 @@
     }
 }
 
-@media screen and (min-width: 667px) {
-    .genres-container {
-        app-genre-thumbnail {
-            flex-basis: 33%;
+/* ################################################
+################### MEDIA QUERIES #################
+################################################ */
 
-            &:nth-child(2) {
-                border-right: 1px solid #263442;
-                border-left: 1px solid #263442;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 820px) {
-    .genres-container {
-        app-genre-thumbnail {
-            flex-basis: 25%;
-
-            &:nth-child(3) {
-                border-right: 1px solid #263442;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: $screen-sm) {
     .hero-container {
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+        }
+    }
+}
+
+@media screen and (min-width: $screen-md) {
+    .hero-container {
+        h1 {
+            font-size: 4rem;
+            transform: translate(-50%, calc(-50% - 4rem));
+        }
+
+        h2 {
+            font-size: 1.8rem;
+        }
+    }
+
+    .page-description {
+        font-size: 1.5rem;
+        line-height: 2.2rem;
+    }
+
+    .genres-heading-section {
+        h3 {
+            font-size: 1.8rem;
+        }
+    }
+
+    .genres-container {
+        app-genre-thumbnail {
+            flex-basis: 50%;
+        }
+    }
+}
+
+@media screen and (min-width: $screen-lg) {
+    .hero-container {
+        h1 {
+            transform: translate(-50%, calc(-50% - 8rem));
+            font-size: 4rem;
+        }
+
+        h2 {
+            transform: translate(-50%, calc(-50% - 4rem));
+            font-size: 1.6rem;
+        }
+
         .mobile {
             display: none;
         }
 
         .desktop {
             display: block;
-        }
-
-        h1 {
-            top: 40%;
-            font-size: 3rem;
-        }
-
-        h2 {
-            top: calc(40% + 1rem);
-            font-size: 1.4rem;
+            min-width: calc(100vw - 2rem); // -2rem for scrollbar width
+            min-height: calc((100vw - 2rem) * 9 / 16); // -2rem for scrollbar width
         }
     }
 
     .genres-container {
         app-genre-thumbnail {
+            flex-basis: 33%;
             max-width: 280px;
-            padding: 0 1rem;
+            padding: 1rem 2rem;
+        }
+    }
+}
+
+@media screen and (min-width: $screen-xl) {
+    .genres-container {
+        app-genre-thumbnail {
+            flex-basis: 25%;
+            padding: 1rem;
+            max-width: 320px;
         }
     }
 }
