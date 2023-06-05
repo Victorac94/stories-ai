@@ -40,6 +40,9 @@ export class HeaderComponent implements OnDestroy {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.hideMobileMenu();
+        // Remove focus from genres dropdown elements when navigating to another route
+        this.menuGenreNames.toArray()[this.menuGenresFocusIndex].nativeElement.blur();
+        this.menuGenresFocusIndex = -1;
       }
     })
   }
