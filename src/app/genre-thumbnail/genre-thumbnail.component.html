@@ -1,4 +1,6 @@
-<div class="container" [routerLink]="genre.link">
-    <img [src]="genre.image" [alt]="genre.name">
-    <h4>{{genre.name}}</h4>
+<div class="container">
+    <img [routerLink]="genre.link" [src]="genre.image" [alt]="genre.name" (mouseenter)="showBoxShadow()"
+        (mouseleave)="hideBoxShadow()" #img>
+    <h4 [routerLink]="genre.link" (mouseenter)="showBoxShadow()" (mouseleave)="hideBoxShadow()" #genreName>
+        {{genre.name}}</h4>
 </div>
