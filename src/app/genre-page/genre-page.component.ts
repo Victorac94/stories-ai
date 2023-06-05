@@ -38,6 +38,7 @@ export class GenrePageComponent implements OnInit, OnDestroy {
       }
     })
 
+    this.scrollTop();
     this.loadStories();
 
   }

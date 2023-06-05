@@ -38,12 +38,10 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Check wether we are scrolling to a specific element or not
-    // If we are, hasLocation should be a string
-    let hashLocation = this.router.url.split('#')[1];
-    console.log('haslocation ', hashLocation);
+    const urlTree = this.router.parseUrl(this.router.url);
 
-    if (hashLocation === undefined) {
+    // If URL does not contain a fragment hash (eg: #genres), scroll to top of the page
+    if (!urlTree.fragment) {
       window.scrollTo(0, 0);
     }
   }
