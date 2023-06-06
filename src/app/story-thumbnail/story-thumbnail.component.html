@@ -1,4 +1,17 @@
-<div class="container" [routerLink]="['./', story.id]">
-    <img [src]="story.thumbnail" [alt]="story.title">
-    <h4>{{story.title}}</h4>
+<div class="container">
+    <div class="image-container wave-border-container" [routerLink]="['/', 'genres', story.genre, story.id]"
+        [appWaveBorder]="imageContainer" #imgContainer>
+        <div class="wave-border border-1"></div>
+        <div class="wave-border border-2"></div>
+        <img [src]="story.thumbnail" [alt]="story.title">
+    </div>
+    <h4 [routerLink]="['/', 'genres', story.genre, story.id]" [appWaveBorder]="imageContainer">{{story.title}}</h4>
+    <!-- <div class="image-container" [routerLink]="['/', 'genres', story.genre, story.id]" (mouseenter)="showImageBorder()"
+        (mouseleave)="hideImageBorder()" #imageContainer>
+        <div class="image-border border-1"></div>
+        <div class="image-border border-2"></div>
+        <img [src]="story.thumbnail" [alt]="story.title">
+    </div>
+    <h4 [routerLink]="['/', 'genres', story.genre, story.id]" (mouseenter)="showImageBorder()"
+        (mouseleave)="hideImageBorder()">{{story.title}}</h4> -->
 </div>

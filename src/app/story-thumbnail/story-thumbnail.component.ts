@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { IStory } from 'src/interfaces/story';
 
 @Component({
@@ -10,4 +10,19 @@ export class StoryThumbnailComponent {
 
   @Input() story: IStory = {} as IStory;
 
+  @ViewChild('imgContainer') imageContainer: ElementRef = new ElementRef('');
+
+  constructor(
+    private renderer: Renderer2
+  ) {
+
+  }
+
+  showImageBorder(): void {
+    this.renderer.addClass(this.imageContainer.nativeElement, 'show-border');
+  }
+
+  hideImageBorder(): void {
+    this.renderer.removeClass(this.imageContainer.nativeElement, 'show-border');
+  }
 }

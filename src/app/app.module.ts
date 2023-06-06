@@ -10,6 +10,7 @@ import { StoryPageComponent } from './story-page/story-page.component';
 import { GenreThumbnailComponent } from './genre-thumbnail/genre-thumbnail.component';
 import { StoryThumbnailComponent } from './story-thumbnail/story-thumbnail.component';
 import { ChooseOptionComponent } from './choose-option/choose-option.component';
+import { WaveBorderDirective } from './wave-border.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ChooseOptionComponent } from './choose-option/choose-option.component';
     StoryPageComponent,
     GenreThumbnailComponent,
     StoryThumbnailComponent,
-    ChooseOptionComponent
+    ChooseOptionComponent,
+    WaveBorderDirective
   ],
   imports: [
     BrowserModule,
