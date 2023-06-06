@@ -1,3 +1,4 @@
+import { Attribute } from '@angular/compiler';
 import { Component, ElementRef, ViewChild, Renderer2, OnDestroy, HostListener, ViewChildren, QueryList } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -40,9 +41,15 @@ export class HeaderComponent implements OnDestroy {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.hideMobileMenu();
-        // Remove focus from genres dropdown elements when navigating to another route
-        this.menuGenreNames.toArray()[this.menuGenresFocusIndex].nativeElement.blur();
-        this.menuGenresFocusIndex = -1;
+
+        // Remove focus from genres dropdown elements when user has selected to navigate to one of those genres
+        const activeGenreElementHref: string | null | undefined = document.activeElement?.getAttribute('href');
+        const activeGenreName: ElementRef = this.menuGenreNames.toArray().filter(el => el.nativeElement.getAttribute('href') === activeGenreElementHref)[0];
+
+        if (activeGenreName !== undefined) {
+          activeGenreName.nativeElement.blur();
+          this.menuGenresFocusIndex = -1;
+        }
       }
     })
   }
