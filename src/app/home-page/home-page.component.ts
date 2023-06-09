@@ -29,7 +29,9 @@ export class HomePageComponent implements OnInit {
       image: 'assets/images/genre_thumbnails/diverse_thumbnail_genre.webp',
       link: '/genres/diverse'
     },
-  ]
+  ];
+
+  isHeroImageLoaded: boolean = false;
 
   constructor(
     private router: Router
@@ -44,5 +46,9 @@ export class HomePageComponent implements OnInit {
     if (!urlTree.fragment) {
       window.scrollTo(0, 0);
     }
+  }
+
+  onHeroImageLoad(): void {
+    this.isHeroImageLoaded = true;
   }
 }

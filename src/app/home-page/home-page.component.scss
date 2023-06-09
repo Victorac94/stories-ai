@@ -11,6 +11,8 @@
 
     .main-image {
         width: 100%;
+        position: relative;
+        z-index: 1;
     }
 
     .mobile {
@@ -37,6 +39,7 @@
         text-shadow: 0 0 10px #16202b, 0 0 10px #16202b;
         opacity: 0;
         animation: fadeIn 1.5s 0.7s ease-out forwards;
+        z-index: 1;
     }
 
     h2 {
@@ -54,6 +57,7 @@
         transform: translate(-50%, calc(-50% + 1rem));
         opacity: 0;
         animation: fadeIn 1.5s 2s ease-out forwards;
+        z-index: 1;
     }
 }
 

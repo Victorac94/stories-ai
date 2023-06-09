@@ -35,6 +35,16 @@
         animation: fadeIn 0.6s ease-out;
     }
 
+    .image-container {
+        width: 100%;
+        position: relative;
+
+        img {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
     .image-desktop {
         display: none;
     }

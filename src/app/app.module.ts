@@ -11,6 +11,7 @@ import { GenreThumbnailComponent } from './genre-thumbnail/genre-thumbnail.compo
 import { StoryThumbnailComponent } from './story-thumbnail/story-thumbnail.component';
 import { ChooseOptionComponent } from './choose-option/choose-option.component';
 import { WaveBorderDirective } from './wave-border.directive';
+import { ImagePlaceholderDirective } from './image-placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WaveBorderDirective } from './wave-border.directive';
     GenreThumbnailComponent,
     StoryThumbnailComponent,
     ChooseOptionComponent,
-    WaveBorderDirective
+    WaveBorderDirective,
+    ImagePlaceholderDirective
   ],
   imports: [
     BrowserModule,

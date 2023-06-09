@@ -6,6 +6,8 @@
 
     img {
         width: 100%;
+        position: relative;
+        z-index: 1;
     }
 
     .mobile {
@@ -21,6 +23,7 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-shadow: 0 0 10px #000000, 0 0 15px #000000;
+        z-index: 1;
     }
 
     .desktop {

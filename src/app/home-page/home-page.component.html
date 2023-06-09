@@ -1,12 +1,13 @@
 <div class="container">
     <!-- Hero -->
-    <div class="hero-container">
+    <div class="hero-container" [appImagePlaceholder]="isHeroImageLoaded">
         <img class="mobile main-image" src="assets/images/hero_images/main_mobile_hero.webp"
-            alt="A wide open book on a table from which it emerges magical plants and creatures">
+            alt="A wide open book on a table from which it emerges magical plants and creatures"
+            (load)="onHeroImageLoad()">
         <img class="desktop main-image" src="assets/images/hero_images/main_desktop_hero.webp"
-            alt="A wide open book on a table surrounded by a tiny sci-fi civilization">
-        <h1>StoriesAI</h1>
-        <h2>Descubre historias escritas y dibujadas por una IA</h2>
+            alt="A wide open book on a table surrounded by a tiny sci-fi civilization" (load)="onHeroImageLoad()">
+        <h1 *ngIf="isHeroImageLoaded">StoriesAI</h1>
+        <h2 *ngIf="isHeroImageLoaded">Descubre historias escritas y dibujadas por una IA</h2>
     </div>
 
     <p class="page-description">Todas las historias han sido escritas por ChatGPT e ilustradas por Midjourney</p>

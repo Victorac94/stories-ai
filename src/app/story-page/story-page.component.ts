@@ -27,6 +27,8 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
   isPrimaryChooseOptionSelected: boolean = false;
   isSecondaryChooseOptionSelected: boolean = false;
 
+  isMainImageLoaded: boolean = false;
+
   routerEventsSubscription: Subscription = new Subscription();
 
   constructor(
@@ -56,6 +58,10 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.routerEventsSubscription.unsubscribe();
   }
 
+  onMainImageLoad(): void {
+    this.isMainImageLoaded = true;
+  }
+
   /**
    * Load story given 'genre' and 'storyId' from URL /genres/:genre/:storyId
    */
@@ -78,7 +84,6 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.story = this.loadStoryData(diverseStories, storyId, genre);
         break;
     }
-    console.log(this.story);
   }
 
   /**
@@ -109,8 +114,6 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param $event Object containing 'A' or 'B' option object and wheter it's 'primary' or 'secondary' chooseOption
    */
   onSelectOption($event: any): void {
-    console.log('onSelectOption() chooseOption chooseOptionStory', $event.chooseOption, $event);
-
     if ($event.chooseOption === 'primary') {
       this.selectedPrimaryChooseOption = $event.option;
       this.isPrimaryChooseOptionSelected = true;

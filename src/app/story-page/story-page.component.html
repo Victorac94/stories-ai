@@ -5,8 +5,10 @@
             <h2>{{story.title}}</h2>
 
             <!-- Main image -->
-            <img class="image-desktop" [src]="story.rootStory.image_desktop">
-            <img class="image-mobile" [src]="story.rootStory.image_mobile">
+            <div class="image-container" [appImagePlaceholder]="isMainImageLoaded">
+                <img class="image-desktop" (load)="onMainImageLoad()" [src]="story.rootStory.image_desktop">
+                <img class="image-mobile" (load)="onMainImageLoad()" [src]="story.rootStory.image_mobile">
+            </div>
 
             <!-- Intro -->
             <p class="intro">{{story.rootStory.text}}</p>

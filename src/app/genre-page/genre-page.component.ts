@@ -21,8 +21,10 @@ export class GenrePageComponent implements OnInit, OnDestroy {
   genre: string = '';
   genreChangeSubscription: Subscription = new Subscription();
 
-  desktopHeroImage: string = 'assets/images/hero_images/space_desktop_hero.webp';
-  mobileHeroImage: string = 'assets/images/hero_images/space_desktop_hero.webp';
+  desktopHeroImage: string = '';
+  mobileHeroImage: string = '';
+
+  isHeroImageLoaded: boolean = false;
 
   constructor(
     private router: Router
@@ -49,6 +51,10 @@ export class GenrePageComponent implements OnInit, OnDestroy {
 
   scrollTop(): void {
     window.scrollTo(0, 0);
+  }
+
+  onHeroImageLoad(): void {
+    this.isHeroImageLoaded = true;
   }
 
   loadStories(): void {
