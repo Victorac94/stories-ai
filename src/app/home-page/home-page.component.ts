@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuxiliaryService } from '../auxiliary.service';
 
 @Component({
   selector: 'app-home-page',
@@ -32,9 +33,11 @@ export class HomePageComponent implements OnInit {
   ];
 
   isHeroImageLoaded: boolean = false;
+  fadeInHeroText: boolean = true;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private auxiliaryService: AuxiliaryService
   ) {
 
   }
@@ -46,9 +49,20 @@ export class HomePageComponent implements OnInit {
     if (!urlTree.fragment) {
       window.scrollTo(0, 0);
     }
+
+    this.shouldFadeInHeroText();
   }
 
   onHeroImageLoad(): void {
     this.isHeroImageLoaded = true;
+  }
+
+  shouldFadeInHeroText(): void {
+    if (this.auxiliaryService.shouldFadeInHomeHeroText === true) {
+      this.fadeInHeroText = true;
+      this.auxiliaryService.shouldFadeInHomeHeroText = false;
+    } else {
+      this.fadeInHeroText = false;
+    }
   }
 }

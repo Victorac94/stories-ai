@@ -1,7 +1,5 @@
-<div class="hero-container" [appImagePlaceholder]="isHeroImageLoaded">
-    <!-- <img class="mobile" src="assets/images/hero_images/sci_fi_1_midjourney.webp" alt="Open book image"> -->
+<div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded}" [appImagePlaceholder]="isHeroImageLoaded">
     <img class="mobile" [src]="mobileHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
-    <!-- <img class="desktop" src="assets/images/hero_images/open_book_1_midjourney.webp" alt="Open book image"> -->
     <img class="desktop" [src]="desktopHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
     <h2 *ngIf="isHeroImageLoaded">{{this.genre}}</h2>
 </div>

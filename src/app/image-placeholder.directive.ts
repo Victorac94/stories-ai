@@ -1,29 +1,44 @@
-import { AfterViewChecked, AfterViewInit, Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { AuxiliaryService } from './auxiliary.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[appImagePlaceholder]'
 })
-export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewInit {
+export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewInit, OnDestroy {
 
   @Input('appImagePlaceholder') imgLoaded: boolean = false;
 
   imagePlaceholder: ElementRef = new ElementRef('');
+  isImagePlaceholderCreated: boolean = false;
+  shouldCreateImagePlaceholderSubscription: Subscription = new Subscription();
 
   constructor(
     private element: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private auxiliaryService: AuxiliaryService
   ) {
   }
 
   ngAfterViewInit(): void {
     this.createImagePlaceholder();
+
+    this.shouldCreateImagePlaceholderSubscription = this.auxiliaryService.shouldCreateImagePlaceholder.subscribe((shouldCreate: boolean) => {
+      if (shouldCreate === true) {
+        this.createImagePlaceholder();
+      }
+    })
   }
 
   // When image is fully loaded, we receive imgLoaded input as true
   ngAfterViewChecked(): void {
-    if (this.imgLoaded === true) {
+    if (this.imgLoaded === true && this.isImagePlaceholderCreated) {
       this.hideImagePlaceholder();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.shouldCreateImagePlaceholderSubscription.unsubscribe();
   }
 
   /**
@@ -51,6 +66,7 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
 
     this.renderer.appendChild(this.imagePlaceholder, imagePlaceholderWave);
     this.renderer.appendChild(this.element.nativeElement, this.imagePlaceholder);
+    this.isImagePlaceholderCreated = true;
   }
 
   /**
@@ -59,6 +75,7 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
   hideImagePlaceholder(): void {
     this.renderer.removeChild(this.element.nativeElement, this.imagePlaceholder, false);
     this.imgLoaded = false;
+    this.isImagePlaceholderCreated = false;
   }
 
 }

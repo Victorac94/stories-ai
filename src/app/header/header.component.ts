@@ -230,10 +230,14 @@ export class HeaderComponent implements OnDestroy {
   showSearchResultsBox(resultsLength: number): void {
     let rowsShown = resultsLength;
 
-    // Maximum 3 rows to show
-    if (resultsLength > 3) rowsShown = 3;
+    // Maximum 3 and a half rows to show. Allowing to scroll
+    if (resultsLength > 3) {
+      rowsShown = 4;
+    } else if (resultsLength === 3) {
+      rowsShown = 3;
+    }
 
-    // Remove previous show-1 show-2 or show-3 classes
+    // Remove previous show-1 show-2 show-3 or show-4 classes
     this.renderer.removeClass(this.mobileSearchResultsBox.nativeElement, 'show-' + this.previousResultsLength);
     this.renderer.removeClass(this.desktopSearchResultsBox.nativeElement, 'show-' + this.previousResultsLength);
 

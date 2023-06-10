@@ -141,9 +141,10 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     // If user is loading a new story from search results
     if (isLoadingNewStory) {
       this.story = undefined;
+      this.isMainImageLoaded = false;
     }
 
-    this.auxiliaryService.restartStory();
+    this.auxiliaryService.restartStory(isLoadingNewStory);
     this.loadStory();
 
     window.scrollTo({

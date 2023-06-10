@@ -9,6 +9,7 @@ import { spaceStories } from 'src/assets/stories/space_stories';
 import { horrorStories } from 'src/assets/stories/horror_stories';
 
 import { genresIndex } from 'src/assets/utils/genres_index';
+import { AuxiliaryService } from '../auxiliary.service';
 
 @Component({
   selector: 'app-genre-page',
@@ -27,7 +28,8 @@ export class GenrePageComponent implements OnInit, OnDestroy {
   isHeroImageLoaded: boolean = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private auxiliaryService: AuxiliaryService
   ) {
 
   }
@@ -35,6 +37,8 @@ export class GenrePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.genreChangeSubscription = this.router.events.subscribe(e => {
       if (e instanceof NavigationEnd) {
+        this.isHeroImageLoaded = false;
+        this.auxiliaryService.createImagePlaceholder();
         this.scrollTop();
         this.loadStories();
       }

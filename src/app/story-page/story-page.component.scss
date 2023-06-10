@@ -37,11 +37,30 @@
 
     .image-container {
         width: 100%;
+        min-height: calc(100vw * 16 / 9); // aspect ratio 9:16
         position: relative;
 
         img {
             position: relative;
             z-index: 1;
+            opacity: 0;
+        }
+
+        &.hero-loaded {
+            animation: fadeIn 0.6s ease-out;
+
+            img {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     }
 
@@ -155,6 +174,10 @@
             margin: 2rem;
         }
 
+        .image-container {
+            min-height: calc(992px * 9 / 16); // Aspect ratio 16:9. 992px is the value of this media query min-width
+        }
+
         .image-mobile {
             display: none;
         }
@@ -165,6 +188,14 @@
 
         .footer {
             margin-bottom: 0;
+
+            button {
+                transition: box-shadow 0.2s ease-out;
+
+                &:hover {
+                    box-shadow: 3px 3px 3px 2px #18232e;
+                }
+            }
         }
     }
 }

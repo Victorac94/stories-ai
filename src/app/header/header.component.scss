@@ -423,7 +423,11 @@
                 }
 
                 &.show-3 {
-                    height: 10.8rem;
+                    height: 9.8rem;
+                }
+
+                &.show-4 {
+                    height: 10.8rem; // Shows 3 and a half rows. Allowing to scroll
                 }
             }
 
@@ -461,7 +465,7 @@
             }
 
             .desktop-search-item-not-found {
-                padding: 1.3rem 1.5rem;
+                padding: 0.8rem 1.5rem;
             }
         }
 
