@@ -7,7 +7,6 @@ import { Subject } from 'rxjs';
 export class AuxiliaryService {
 
   restart: Subject<boolean> = new Subject() as Subject<boolean>;
-  // isLoadingNewStory: Subject<boolean> = new Subject() as Subject<boolean>;
   shouldCreateImagePlaceholder: Subject<boolean> = new Subject() as Subject<boolean>;
   removeChooseOptionStyles: Subject<string> = new Subject() as Subject<string>;
   shouldFadeInHomeHeroText: boolean = true;
@@ -16,8 +15,7 @@ export class AuxiliaryService {
 
   restartStory(isLoadingNewStory: boolean = false): void {
     if (isLoadingNewStory) {
-      // this.isLoadingNewStory.next(isLoadingNewStory);
-      this.shouldCreateImagePlaceholder.next(true);
+      this.createImagePlaceholder();
     }
     this.restart.next(true);
   }

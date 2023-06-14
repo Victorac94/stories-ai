@@ -1,7 +1,7 @@
 <div class="container">
     <!-- Hero -->
     <div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded, 'fade-in-hero-text': fadeInHeroText}"
-        [appImagePlaceholder]="isHeroImageLoaded">
+        [appImagePlaceholder]="{isHeroImageLoaded: isHeroImageLoaded}">
         <img class="mobile main-image" src="assets/images/hero_images/main_mobile_hero.webp"
             alt="A wide open book on a table from which it emerges magical plants and creatures"
             (load)="onHeroImageLoad()">

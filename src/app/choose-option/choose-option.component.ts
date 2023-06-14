@@ -26,6 +26,11 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
   removeChooseOptionsStylesSubscription: Subscription = new Subscription();
   restartSubscription: Subscription = new Subscription();
 
+  isDesktopOptionAImageLoaded: boolean = false;
+  isDesktopOptionBImageLoaded: boolean = false;
+  isMobileOptionAImageLoaded: boolean = false;
+  isMobileOptionBImageLoaded: boolean = false;
+
   constructor(
     private renderer: Renderer2,
     private auxiliaryService: AuxiliaryService
@@ -33,11 +38,20 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
 
   }
 
+  // TODO: Hacer que en vez de hacer fadeIn a la imagen y mostrarla cuando haya cargado entera, ponerle fadeIn al componente entero de esa página cuando cargamos una historia o genero nuevos y la imagen se vaya mostrando según va cargando.
+
+  // TODO: ocultar las imágenes de choose option de la historia anterior cuando cargamos una historia nueva desde la propia story page
+
   ngOnInit(): void {
     // Remove active-option class when user is restarting the story
     this.restartSubscription = this.auxiliaryService.restart.subscribe((restarting: boolean) => {
       if (restarting === true) {
         this.removeChooseOptionStyles();
+
+        this.isDesktopOptionAImageLoaded = false;
+        this.isMobileOptionAImageLoaded = false;
+        this.isDesktopOptionBImageLoaded = false;
+        this.isMobileOptionBImageLoaded = false;
       }
     })
 
@@ -152,6 +166,19 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
       this.renderer.removeClass(this.optionTextA.nativeElement, 'active-option');
       this.renderer.removeClass(this.desktopImageA.nativeElement, 'show-border');
       this.renderer.removeClass(this.mobileImageA.nativeElement, 'show-border');
+    }
+  }
+
+  onChooseOptionImageLoad(option: string, viewport: string): void {
+    if (option === 'A' && viewport === 'desktop') {
+      this.isDesktopOptionAImageLoaded = true;
+    } else if (option === 'A' && viewport === 'mobile') {
+      this.isMobileOptionAImageLoaded = true;
+
+    } else if (option === 'B' && viewport === 'desktop') {
+      this.isDesktopOptionBImageLoaded = true;
+    } else if (option === 'B' && viewport === 'mobile') {
+      this.isMobileOptionBImageLoaded = true;
     }
   }
 

@@ -1,4 +1,5 @@
-<div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded}" [appImagePlaceholder]="isHeroImageLoaded">
+<div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded}"
+    [appImagePlaceholder]="{isHeroImageLoaded: isHeroImageLoaded}">
     <img class="mobile" [src]="mobileHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
     <img class="desktop" [src]="desktopHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
     <h2 *ngIf="isHeroImageLoaded">{{this.genre}}</h2>

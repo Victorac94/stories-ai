@@ -5,17 +5,23 @@
     <p class="option-letter-mobile letter-a" (click)="selectOption(optionB, 'A')" title="Opción A">A</p>
     <div class="image-container desktop desktop-image-a" (mouseenter)="onMouseEnterOption($event, 'A')"
         (mouseleave)="onMouseLeaveOption($event, 'A')" (click)="selectOption(optionA, 'A')" title="Opción A"
+        [appImagePlaceholder]="{isOptionAImageLoaded: isDesktopOptionAImageLoaded, isForChooseOption: true}"
         #desktopImageA>
         <div class="image-border-element"></div>
+        <div class="image-backdrop-layer"></div>
         <div class="image-wrapper">
-            <img class="image-a" [src]="optionA?.image_desktop" [alt]="optionA?.optionText">
+            <img class="image-a" (load)="onChooseOptionImageLoad('A', 'desktop')" [src]="optionA?.image_desktop"
+                [alt]="optionA?.optionText">
         </div>
     </div>
     <div class="image-container mobile mobile-image-a" (click)="selectOption(optionA, 'A')" title="Opción A"
+        [appImagePlaceholder]="{isOptionAImageLoaded: isMobileOptionAImageLoaded, isForChooseOption: true}"
         #mobileImageA>
         <div class="image-border-element"></div>
+        <div class="image-backdrop-layer"></div>
         <div class="image-wrapper">
-            <img class="image-a" [src]="optionA?.image_mobile" [alt]="optionA?.optionText">
+            <img class="image-a" (load)="onChooseOptionImageLoad('A', 'mobile')" [src]="optionA?.image_mobile"
+                [alt]="optionA?.optionText">
         </div>
     </div>
     <div class="option-text-wrapper text-a">
@@ -32,17 +38,23 @@
     <p class="option-letter-mobile letter-b" (click)="selectOption(optionB, 'B')" title="Opción B">B</p>
     <div class="image-container desktop desktop-image-b" (mouseenter)="onMouseEnterOption($event, 'B')"
         (mouseleave)="onMouseLeaveOption($event, 'B')" (click)="selectOption(optionB, 'B')" title="Opción B"
+        [appImagePlaceholder]="{isOptionBImageLoaded: isDesktopOptionBImageLoaded, isForChooseOption: true}"
         #desktopImageB>
         <div class="image-border-element"></div>
+        <div class="image-backdrop-layer"></div>
         <div class="image-wrapper">
-            <img class="image-b" [src]="optionB?.image_desktop" [alt]="optionB?.optionText">
+            <img class="image-b" (load)="onChooseOptionImageLoad('B', 'desktop')" [src]="optionB?.image_desktop"
+                [alt]="optionB?.optionText">
         </div>
     </div>
     <div class="image-container mobile mobile-image-b" (click)="selectOption(optionB, 'B')" title="Opción B"
+        [appImagePlaceholder]="{isOptionBImageLoaded: isMobileOptionBImageLoaded, isForChooseOption: true}"
         #mobileImageB>
         <div class="image-border-element"></div>
+        <div class="image-backdrop-layer"></div>
         <div class="image-wrapper">
-            <img class="image-b" [src]="optionB?.image_mobile" [alt]="optionB?.optionText">
+            <img class="image-b" (load)="onChooseOptionImageLoad('B', 'mobile')" [src]="optionB?.image_mobile"
+                [alt]="optionB?.optionText">
         </div>
     </div>
     <div class="option-text-wrapper text-b">

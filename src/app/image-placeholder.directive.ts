@@ -1,13 +1,21 @@
 import { AfterViewChecked, AfterViewInit, Directive, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
-import { AuxiliaryService } from './auxiliary.service';
 import { Subscription } from 'rxjs';
+
+import { AuxiliaryService } from './auxiliary.service';
+
+import { IDirectiveConfig } from 'src/interfaces/imagePlaceholderDirective';
 
 @Directive({
   selector: '[appImagePlaceholder]'
 })
 export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewInit, OnDestroy {
 
-  @Input('appImagePlaceholder') imgLoaded: boolean = false;
+  @Input('appImagePlaceholder') directiveConfig: Partial<IDirectiveConfig> = {
+    isHeroImageLoaded: false,
+    isOptionAImageLoaded: false,
+    isOptionBImageLoaded: false,
+    isForChooseOption: false
+  }
 
   imagePlaceholder: ElementRef = new ElementRef('');
   isImagePlaceholderCreated: boolean = false;
@@ -21,18 +29,22 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
   }
 
   ngAfterViewInit(): void {
-    this.createImagePlaceholder();
+    this.createImagePlaceholder(this.directiveConfig.isForChooseOption);
 
+    // When loading a new story and already being in story page, or 
+    // when loading a new genre and already being in genre page.
     this.shouldCreateImagePlaceholderSubscription = this.auxiliaryService.shouldCreateImagePlaceholder.subscribe((shouldCreate: boolean) => {
-      if (shouldCreate === true) {
-        this.createImagePlaceholder();
+      if (shouldCreate === true && this.isImagePlaceholderCreated === false) {
+        this.createImagePlaceholder(this.directiveConfig.isForChooseOption);
       }
     })
   }
 
-  // When image is fully loaded, we receive imgLoaded input as true
+  // When image is fully loaded, we receive isHeroImageLoaded input as true
   ngAfterViewChecked(): void {
-    if (this.imgLoaded === true && this.isImagePlaceholderCreated) {
+    if ((this.directiveConfig.isHeroImageLoaded === true && this.isImagePlaceholderCreated === true)
+      || (this.directiveConfig.isOptionAImageLoaded === true && this.isImagePlaceholderCreated === true)
+      || (this.directiveConfig.isOptionBImageLoaded === true && this.isImagePlaceholderCreated === true)) {
       this.hideImagePlaceholder();
     }
   }
@@ -45,21 +57,29 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
    * Creates a background image placeholder to show while image is still loading
    * to avoid layout reflow
    */
-  createImagePlaceholder(): void {
+  createImagePlaceholder(isForChooseOption: boolean = false): void {
     const elementDimensions = this.element.nativeElement.getBoundingClientRect();
     const bodyElement = this.renderer.selectRootElement('body', true);
     const imagePlaceholderWave = this.renderer.createElement('div');
     this.imagePlaceholder = this.renderer.createElement('div');
 
     this.renderer.addClass(this.imagePlaceholder, 'image-placeholder');
-    // this.renderer.setProperty(this.imagePlaceholder, 'innerText', 'Cargando imagen...');
     this.renderer.addClass(imagePlaceholderWave, 'image-placeholder-wave');
 
-    // Desktop version. Aspect ratio 16:9
+    // If placeholder is for the Choose Option element inside a story,
+    // create the placeholder in that card and return.
+    if (isForChooseOption === true) {
+      this.renderer.appendChild(this.imagePlaceholder, imagePlaceholderWave);
+      this.renderer.appendChild(this.element.nativeElement, this.imagePlaceholder);
+      this.isImagePlaceholderCreated = true;
+      return;
+    }
+
+    // Hero desktop version. Aspect ratio 16:9
     if (bodyElement.offsetWidth > 769) {
       this.renderer.setStyle(this.imagePlaceholder, 'height', elementDimensions.width * 9 / 16 + 'px');
 
-      // Mobile version. Aspect ratio 9:16
+      // Hero mobile version. Aspect ratio 9:16
     } else {
       this.renderer.setStyle(this.imagePlaceholder, 'height', elementDimensions.width * 16 / 9 + 'px');
     }
@@ -74,7 +94,9 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
    */
   hideImagePlaceholder(): void {
     this.renderer.removeChild(this.element.nativeElement, this.imagePlaceholder, false);
-    this.imgLoaded = false;
+    this.directiveConfig.isHeroImageLoaded = false;
+    this.directiveConfig.isOptionAImageLoaded = false;
+    this.directiveConfig.isOptionBImageLoaded = false;
     this.isImagePlaceholderCreated = false;
   }
 
