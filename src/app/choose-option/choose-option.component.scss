@@ -149,6 +149,10 @@
             border-radius: 5px;
             margin: 5rem 0;
 
+            .image-backdrop-layer {
+                border-radius: 5px;
+            }
+
             .image-wrapper {
                 border-radius: 5px;
 
@@ -177,6 +181,7 @@
             margin-bottom: 1rem;
             box-shadow: 0 0 5px 0 #111111;
 
+            .image-backdrop-layer,
             .image-wrapper {
                 border-top-right-radius: 1rem;
                 border-bottom-left-radius: 1rem;
@@ -200,6 +205,7 @@
                     transform: rotateZ(45deg) scale(0.5);
                 }
 
+                .image-backdrop-layer,
                 .image-wrapper {
                     border-radius: 0;
                     border-top-left-radius: 1rem;
