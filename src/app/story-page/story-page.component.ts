@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -36,6 +36,10 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
     private auxiliaryService: AuxiliaryService,
     private renderer: Renderer2
   ) { }
+
+  @HostListener('window:resize') onScreenResize() {
+    this.setPageBackgroundImage();
+  }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -158,8 +162,10 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
    * Only viewed on desktop devices
    */
   setPageBackgroundImage(): void {
-    // Set the background image of the page.
-    this.renderer.setStyle(this.container.nativeElement, 'background-image', `url('${this.story?.rootStory.image_desktop}')`);
+    if (window.innerWidth > 992) {
+      // Set the background image of the page.
+      this.renderer.setStyle(this.container.nativeElement, 'background-image', `url('${this.story?.rootStory.image_desktop}')`);
+    }
   }
 
   /**
