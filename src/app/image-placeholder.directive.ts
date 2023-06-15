@@ -14,7 +14,9 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
     isHeroImageLoaded: false,
     isOptionAImageLoaded: false,
     isOptionBImageLoaded: false,
-    isForChooseOption: false
+    isThumbnailImageLoaded: false,
+    isForChooseOption: false,
+    isFullWidth: false
   }
 
   imagePlaceholder: ElementRef = new ElementRef('');
@@ -29,13 +31,13 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
   }
 
   ngAfterViewInit(): void {
-    this.createImagePlaceholder(this.directiveConfig.isForChooseOption);
+    this.createImagePlaceholder(this.directiveConfig.isForChooseOption, this.directiveConfig.isForThumbnail, this.directiveConfig.isFullWidth);
 
     // When loading a new story and already being in story page, or 
     // when loading a new genre and already being in genre page.
     this.shouldCreateImagePlaceholderSubscription = this.auxiliaryService.shouldCreateImagePlaceholder.subscribe((shouldCreate: boolean) => {
       if (shouldCreate === true && this.isImagePlaceholderCreated === false) {
-        this.createImagePlaceholder(this.directiveConfig.isForChooseOption);
+        this.createImagePlaceholder(this.directiveConfig.isForChooseOption, this.directiveConfig.isForThumbnail, this.directiveConfig.isFullWidth);
       }
     })
   }
@@ -44,7 +46,8 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
   ngAfterViewChecked(): void {
     if ((this.directiveConfig.isHeroImageLoaded === true && this.isImagePlaceholderCreated === true)
       || (this.directiveConfig.isOptionAImageLoaded === true && this.isImagePlaceholderCreated === true)
-      || (this.directiveConfig.isOptionBImageLoaded === true && this.isImagePlaceholderCreated === true)) {
+      || (this.directiveConfig.isOptionBImageLoaded === true && this.isImagePlaceholderCreated === true)
+      || (this.directiveConfig.isThumbnailImageLoaded === true && this.isImagePlaceholderCreated === true)) {
       this.hideImagePlaceholder();
     }
   }
@@ -57,7 +60,7 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
    * Creates a background image placeholder to show while image is still loading
    * to avoid layout reflow
    */
-  createImagePlaceholder(isForChooseOption: boolean = false): void {
+  createImagePlaceholder(isForChooseOption: boolean = false, isForThumbnail: boolean = false, isFullWidth: boolean = false): void {
     const elementDimensions = this.element.nativeElement.getBoundingClientRect();
     const bodyElement = this.renderer.selectRootElement('body', true);
     const imagePlaceholderWave = this.renderer.createElement('div');
@@ -66,12 +69,20 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
     this.renderer.addClass(this.imagePlaceholder, 'image-placeholder');
     this.renderer.addClass(imagePlaceholderWave, 'image-placeholder-wave');
 
-    // If placeholder is for the Choose Option element inside a story,
+    // If placeholder is for the Choose Option element inside a story or for a story/genre thumbnail,
     // create the placeholder in that card and return.
-    if (isForChooseOption === true) {
+    if (isForChooseOption === true || isForThumbnail === true) {
       this.renderer.appendChild(this.imagePlaceholder, imagePlaceholderWave);
       this.renderer.appendChild(this.element.nativeElement, this.imagePlaceholder);
       this.isImagePlaceholderCreated = true;
+
+      if (isForThumbnail === true) {
+        this.renderer.addClass(this.imagePlaceholder, 'thumbnail');
+
+        if (isFullWidth === true) {
+          this.renderer.addClass(this.imagePlaceholder, 'full-width');
+        }
+      }
       return;
     }
 
@@ -97,6 +108,7 @@ export class ImagePlaceholderDirective implements AfterViewChecked, AfterViewIni
     this.directiveConfig.isHeroImageLoaded = false;
     this.directiveConfig.isOptionAImageLoaded = false;
     this.directiveConfig.isOptionBImageLoaded = false;
+    this.directiveConfig.isThumbnailImageLoaded = false;
     this.isImagePlaceholderCreated = false;
   }
 

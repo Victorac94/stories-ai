@@ -1,13 +1,11 @@
 <div class="container">
-    <div class="image-container wave-border-container" [appWaveBorder]="imageContainer" #imgContainer>
+    <div class="image-container wave-border-container" [appWaveBorder]="imageContainer"
+        [appImagePlaceholder]="{'isThumbnailImageLoaded': isThumbnailImageLoaded, 'isForThumbnail': true, 'isFullWidth': true}"
+        #imgContainer>
         <div class="wave-border border-1 full-width"></div>
         <div class="wave-border border-2 full-width"></div>
-        <img [routerLink]="genre.link" [src]="genre.image" [alt]="genre.name">
-        <!-- <img [routerLink]="genre.link" [src]="genre.image" [alt]="genre.name" (mouseenter)="showBoxShadow()"
-            (mouseleave)="hideBoxShadow()" #img> -->
+        <img [routerLink]="genre.link" [src]="genre.image" (load)="onThumbnailImageLoaded()" [alt]="genre.name">
     </div>
     <h4 [routerLink]="genre.link" [appWaveBorder]="imageContainer" #genreName>
         {{genre.name}}</h4>
-    <!-- <h4 [routerLink]="genre.link" [appWaveBorder]="imageContainer" (mouseenter)="showBoxShadow()" (mouseleave)="hideBoxShadow()" #genreName>
-        {{genre.name}}</h4> -->
 </div>

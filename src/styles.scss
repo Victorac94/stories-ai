@@ -87,6 +87,18 @@ body {
     opacity: 0.3;
     overflow: hidden;
 
+    &.thumbnail {
+        width: 80%;
+        border-radius: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+
+        &.full-width {
+            width: 100%;
+        }
+    }
+
     .image-placeholder-wave {
         position: absolute;
         width: 100%;
