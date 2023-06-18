@@ -12,6 +12,7 @@ import { StoryThumbnailComponent } from './story-thumbnail/story-thumbnail.compo
 import { ChooseOptionComponent } from './choose-option/choose-option.component';
 import { WaveBorderDirective } from './wave-border.directive';
 import { ImagePlaceholderDirective } from './image-placeholder.directive';
+import { CapitalizePipe } from './capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ImagePlaceholderDirective } from './image-placeholder.directive';
     StoryThumbnailComponent,
     ChooseOptionComponent,
     WaveBorderDirective,
-    ImagePlaceholderDirective
+    ImagePlaceholderDirective,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,

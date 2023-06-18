@@ -167,13 +167,4 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.renderer.setStyle(this.container.nativeElement, 'background-image', `url('${this.story?.rootStory.image_desktop}')`);
     }
   }
-
-  /**
-   * Capitalizes the first letter of the string
-   * 
-   * @param text string to capitalize
-   */
-  capitalize(text: string): string {
-    return text.charAt(0).toUpperCase() + text.slice(1);
-  }
 }
