@@ -101,9 +101,9 @@
 }
 
 /* Screen large. 992px */
-@media screen and (min-width: $screen-lg) {
+@media screen and (min-width: $screen-lg), (orientation: landscape) {
     .hero-container {
-        min-height: calc(992px * 9 / 16); // Aspect ratio 16:9. 992px is the value of this media query min-width
+        min-height: calc(100% * 9 / 16); // Aspect ratio 16:9
 
         h2 {
             font-size: 5rem;
@@ -142,6 +142,20 @@
 
         app-story-thumbnail {
             flex-basis: 25%;
+        }
+    }
+}
+
+@media screen and (max-width: $screen-lg) and (orientation: landscape) {
+    .hero-container {
+        h2 {
+            font-size: 3rem;
+        }
+    }
+
+    .stories-container {
+        h3 {
+            font-size: 1.8rem;
         }
     }
 }

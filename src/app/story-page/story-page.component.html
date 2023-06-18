@@ -5,7 +5,7 @@
             <h2>{{story.title}}</h2>
 
             <!-- Main image -->
-            <div [ngClass]="{'image-container': true, 'hero-loaded': isMainImageLoaded}"
+            <div [ngClass]="{'main-image-container': true, 'hero-loaded': isMainImageLoaded}"
                 [appImagePlaceholder]="{isHeroImageLoaded: isMainImageLoaded}">
                 <img class="image-desktop" (load)="onMainImageLoad()" [src]="story.rootStory.image_desktop">
                 <img class="image-mobile" (load)="onMainImageLoad()" [src]="story.rootStory.image_mobile">

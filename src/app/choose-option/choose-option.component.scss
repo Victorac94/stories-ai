@@ -273,7 +273,7 @@
     }
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px), (orientation: landscape) {
     .container {
         grid-template-columns: 30% 30% 20% 20%;
         grid-template-areas:
@@ -346,6 +346,25 @@
             &.text-b {
                 margin-left: 0;
             }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+
+        .image-container {
+            &.desktop {
+                width: 9rem;
+                height: 9rem;
+            }
+        }
+
+        .option-text-wrapper {
+            margin-top: 0;
+            justify-content: center;
         }
     }
 }

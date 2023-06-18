@@ -280,7 +280,7 @@
 ################ MEDIA QUERIES ############### 
 ########################################### */
 
-@media screen and (min-width: $screen-md) {
+@media screen and (min-width: $screen-md) and (orientation: portrait) {
     .mobile-header {
         transform: translateY(calc(100% - 4.2rem)); // 2.2rem padding + 2rem from h2
 

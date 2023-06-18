@@ -54,7 +54,7 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        color: $text-color-main;
+        color: #f4f7fb;
         width: 100%;
         padding: 3rem;
         font-family: "Varela Round", sans-serif;
@@ -177,9 +177,9 @@
     }
 }
 
-@media screen and (min-width: $screen-lg) {
+@media screen and (min-width: $screen-lg), (orientation: landscape) {
     .hero-container {
-        min-height: calc(992px * 9 / 16); // Aspect ratio 16:9. 992px is the value of this media query min-width
+        min-height: calc(100% * 9 / 16); // Aspect ratio 16:9
 
         h1 {
             transform: translate(-50%, calc(-50% - 8rem));
