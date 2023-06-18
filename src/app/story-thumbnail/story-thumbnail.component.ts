@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild } from '@angular/core';
 import { IStory } from 'src/interfaces/story';
 
 @Component({
@@ -18,10 +18,6 @@ export class StoryThumbnailComponent implements AfterViewInit {
     private renderer: Renderer2
   ) {
 
-  }
-
-  @HostListener('window:resize') onScreenResize() {
-    this.setThumbnailHeight();
   }
 
   ngAfterViewInit(): void {
@@ -46,5 +42,9 @@ export class StoryThumbnailComponent implements AfterViewInit {
 
   onThumbnailImageLoaded(): void {
     this.isThumbnailImageLoaded = true;
+
+    // Remove fixed size when image is fully loaded
+    this.renderer.setStyle(this.imageContainer.nativeElement, 'min-height', 'initial');
+    this.renderer.setStyle(this.imageContainer.nativeElement, 'min-width', 'initial');
   }
 }

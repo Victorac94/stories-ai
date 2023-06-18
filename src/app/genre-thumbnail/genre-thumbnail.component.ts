@@ -33,6 +33,10 @@ export class GenreThumbnailComponent implements AfterViewInit {
 
   onThumbnailImageLoaded(): void {
     this.isThumbnailImageLoaded = true;
+
+    // Remove fixed size when image is fully loaded
+    this.renderer.setStyle(this.imageContainer.nativeElement, 'min-height', 'initial');
+    this.renderer.setStyle(this.imageContainer.nativeElement, 'min-width', 'initial');
   }
 
 }
