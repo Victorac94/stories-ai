@@ -263,7 +263,7 @@ export class HeaderComponent implements OnDestroy {
    * 
    * @param searchText text to search stories by
    */
-  searchStory(searchText: string): void {
+  searchStory(searchText: string, $event?: Event): void {
     searchText = searchText.trim().toLowerCase();
 
     // If there is nothing written on input, hide results box
@@ -312,14 +312,39 @@ export class HeaderComponent implements OnDestroy {
   }
 
   /**
-   * Set focus on search input
+   * Set focus on search input or search for the found story (if there's only 1 search result)
    */
-  setSearchInputFocus(device: string = 'mobile'): void {
+  onSearchEvent(device: string = 'mobile', functionality?: string): void {
 
     if (device === 'mobile') {
-      this.mobileSearchInput.nativeElement.focus();
+      // If mobile search input already has a search string and is showing 1 story search result, load that story.
+      if (this.mobileSearchInput.nativeElement.value.trim() !== '') {
+        this.searchFoundStory();
+
+      } else {
+        this.mobileSearchInput.nativeElement.focus();
+      }
     } else if (device === 'desktop') {
-      this.desktopSearchInput.nativeElement.focus();
+      // If desktop search input already has a search string and is showing 1 story search result, load that story.
+      if (this.desktopSearchInput.nativeElement.value.trim() !== '' && functionality === 'Enter') {
+        this.searchFoundStory();
+
+      } else {
+        this.desktopSearchInput.nativeElement.focus();
+      }
+    }
+  }
+
+  /**
+   * If search results has only 1 coincidence, load that story
+   */
+  searchFoundStory(): void {
+    if (this.searchResults.length === 1 && this.noSearchResults === false) {
+      this.hideSearchResultsBox();
+      this.onLoadSearchedStory(this.searchResults[0]);
+      this.searchResults = [];
+      this.mobileSearchInput.nativeElement.blur();
+      this.desktopSearchInput.nativeElement.blur();
     }
   }
 

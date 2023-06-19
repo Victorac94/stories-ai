@@ -29,11 +29,11 @@
                 <a class="icon-home" routerLink="/home"></a>
 
                 <div class="input-container">
-                    <input type="search" (input)="searchStory(mobileSearchInput.value)" placeholder="Título o género..."
-                        #mobileSearchInput>
+                    <input type="search" (input)="searchStory(mobileSearchInput.value)" (search)="onSearchEvent()"
+                        placeholder="Título o género..." #mobileSearchInput>
                     <div class="bottom-line"></div>
                 </div>
-                <button type="input" (click)="setSearchInputFocus('mobile')">Buscar</button>
+                <button type="input" (click)="onSearchEvent('mobile')">Buscar</button>
             </div>
             <ul>
                 <li class="genres">
@@ -82,10 +82,12 @@
                 <li class="search-container">
                     <div class="input-container">
                         <input type="search" (input)="searchStory(desktopSearchInput.value)"
-                            placeholder="Busca por título o género..." tabindex="0" #desktopSearchInput>
+                            (keydown)="onSearchEvent('desktop', $event.code)"
+                            (search)="onSearchEvent('desktop', 'Enter')" placeholder="Busca por título o género..."
+                            tabindex="0" #desktopSearchInput>
                         <div class="bottom-line"></div>
                     </div>
-                    <button (click)="setSearchInputFocus('desktop')" tabindex="0">Buscar</button>
+                    <button (click)="onSearchEvent('desktop', 'Enter')" tabindex="0">Buscar</button>
                 </li>
                 <li class="genres" tabindex="0" #genres>
                     Géneros
