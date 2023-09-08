@@ -7,17 +7,74 @@
     flex-direction: column;
     align-items: center;
 
-    .image-container {
+    // .thumbnail-container {
+    //     position: relative;
+    //     display: flex;
+    //     justify-content: center;
+    //     border-radius: 50%;
+    //     cursor: pointer;
+
+    //     img {
+    //         border-radius: 50%;
+    //         width: 80%;
+    //         position: relative;
+    //     }
+
+    //     .thumbnail-wrapper {
+    //         width: 100%;
+    //         height: 100%;
+    //         // border-radius: 50%;
+    //         border-radius: 1rem;
+    //         overflow: hidden;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         flex-grow: 1;
+    //         position: absolute;
+    //         will-change: transform;
+    //     }
+    // }
+
+    .thumbnail-container {
         position: relative;
         display: flex;
         justify-content: center;
+        align-items: center;
+        flex-direction: column;
         border-radius: 50%;
+        overflow: hidden;
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        will-change: transform;
 
-        img {
-            border-radius: 50%;
-            width: 80%;
-            position: relative;
+        .thumbnail-wrapper {
+            width: 100%;
+            height: 100%;
+            // border-radius: 50%;
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            position: absolute;
+            will-change: transform;
+
+            img {
+                width: 100%;
+                height: auto;
+                cursor: pointer;
+                transition: box-shadow 0.5s ease-out;
+                position: absolute;
+
+                &.show-box-shadow {
+                    box-shadow: 0 0 5px 0 #c6974d;
+                }
+            }
+
+            .desktop {
+                display: none;
+            }
         }
     }
 
@@ -42,6 +99,22 @@
 
         h4 {
             font-size: 1.6rem;
+        }
+    }
+}
+
+@media screen and (min-width: $screen-lg), (orientation: landscape) {
+    .container {
+        .thumbnail-container {
+            .thumbnail-wrapper {
+                .desktop {
+                    display: block;
+                }
+
+                .mobile {
+                    display: none;
+                }
+            }
         }
     }
 }

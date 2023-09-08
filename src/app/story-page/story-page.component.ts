@@ -19,6 +19,12 @@ import { horrorStories } from 'src/assets/stories/horror_stories';
 export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('container') container: ElementRef = new ElementRef('');
+  @ViewChild('mainMediaDesktop') mainMediaDesktop: ElementRef = new ElementRef('');
+  @ViewChild('mainMediaMobile') mainMediaMobile: ElementRef = new ElementRef('');
+  @ViewChild('primaryOptionMediaDesktop') primaryOptionMediaDesktop: ElementRef = new ElementRef('');
+  @ViewChild('primaryOptionMediaMobile') primaryOptionMediaMobile: ElementRef = new ElementRef('');
+  @ViewChild('secondaryOptionMediaDesktop') secondaryOptionMediaDesktop: ElementRef = new ElementRef('');
+  @ViewChild('secondaryOptionMediaMobile') secondaryOptionMediaMobile: ElementRef = new ElementRef('');
 
   story: IStory | undefined = undefined;
   storyId: number = 1;
@@ -56,14 +62,20 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.setPageBackgroundImage();
+
+    setTimeout(() => {
+      console.log(this.auxiliaryService.getAppContainerRef().nativeElement, this.auxiliaryService.getStoryThumbnailRef())
+      this.renderer.removeChild(this.auxiliaryService.getAppContainerRef().nativeElement, this.auxiliaryService.getStoryThumbnailRef());
+    }, 200);
   }
 
   ngOnDestroy() {
     this.routerEventsSubscription.unsubscribe();
   }
 
-  onMainImageLoad(): void {
+  onMainImageLoad(event: Event): void {
     this.isMainImageLoaded = true;
+    // this.renderer.setStyle(event.target, 'display', 'none');
   }
 
   /**
@@ -124,9 +136,21 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isSecondaryChooseOptionSelected = false;
       this.auxiliaryService.doRemoveChooseOptionStyles('secondary');
 
+      // Load the new media source. Force a new re-render
+      setTimeout(() => {
+        this.primaryOptionMediaDesktop.nativeElement.load();
+        this.primaryOptionMediaMobile.nativeElement.load();
+      }, 0);
+
     } else if ($event.chooseOption === 'secondary') {
       this.selectedSecondaryChooseOption = $event.option;
       this.isSecondaryChooseOptionSelected = true;
+
+      // Load the new media source. Force a new re-render
+      setTimeout(() => {
+        this.secondaryOptionMediaDesktop.nativeElement.load();
+        this.secondaryOptionMediaMobile.nativeElement.load();
+      }, 0);
     }
   }
 
@@ -150,6 +174,8 @@ export class StoryPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.auxiliaryService.restartStory(isLoadingNewStory);
     this.loadStory();
+    // this.mainMediaDesktop.nativeElement.load();
+    // this.mainMediaMobile.nativeElement.load();
 
     window.scrollTo({
       top: 0,

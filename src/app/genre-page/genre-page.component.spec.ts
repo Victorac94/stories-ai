@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { GenrePageComponent } from './genre-page.component';
-import { ImagePlaceholderDirective } from '../image-placeholder.directive';
+import { ImagePlaceholderDirective } from '../directives/image-placeholder.directive';
 
 describe('GenrePageComponent', () => {
   let component: GenrePageComponent;

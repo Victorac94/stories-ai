@@ -7,20 +7,79 @@
     flex-direction: column;
     align-items: center;
 
-    .image-container {
+    .thumbnail-container {
         position: relative;
         display: flex;
         justify-content: center;
+        align-items: center;
+        flex-direction: column;
         border-radius: 50%;
+        overflow: hidden;
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        will-change: transform;
+
+        &.on-hover-thumbnail {
+            transition: box-shadow 400ms ease-out;
+            transform-origin: center;
+            box-shadow:
+                2px 3px 5px #111,
+                0 3px 5px #111;
+            animation: scale-up 500ms ease-out 400ms forwards;
+
+            @keyframes scale-up {
+                from {
+                    border-radius: 50%;
+                    box-shadow: none;
+                }
+                to {
+                    transform: scale(2);
+                    border-radius: 1rem;
+                    box-shadow: none;
+                }
+            }
+
+            .thumbnail-wrapper {
+                transform-origin: center;
+                box-shadow:
+                    2px 3px 5px #111,
+                    0 3px 5px #111;
+                // transition: transform 500ms linear 400ms;
+                // transform: scale(0.5);
+                animation: scale-down 500ms ease-out 400ms forwards;
+
+                @keyframes scale-down {
+                    from {
+                        transform: scale(1);
+                    }
+                    to {
+                        transform: scale(0.5);
+                    }
+                }
+            }
+        }
+    }
+
+    .thumbnail-wrapper {
+        width: 100%;
+        height: 100%;
+        // border-radius: 50%;
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        position: absolute;
+        will-change: transform;
     }
 
     img {
-        border-radius: 50%;
         width: 100%;
+        height: auto;
         cursor: pointer;
         transition: box-shadow 0.5s ease-out;
-        position: relative;
+        position: absolute;
 
         &.show-box-shadow {
             box-shadow: 0 0 5px 0 #c6974d;
@@ -36,6 +95,9 @@
         cursor: pointer;
         user-select: none;
         width: 100%;
+        position: relative;
+        z-index: 1;
+        -webkit-tap-highlight-color: transparent;
     }
 }
 
@@ -54,9 +116,19 @@
 @media screen and (min-width: $screen-md) {
     .container {
         padding: 2.5rem;
+        // padding: 4rem;
 
         h4 {
             font-size: 1.8rem;
+        }
+    }
+}
+
+@media screen and (min-width: $screen-lg), (orientation: landscape) {
+    .container {
+        img {
+            width: auto;
+            height: 100%;
         }
     }
 }

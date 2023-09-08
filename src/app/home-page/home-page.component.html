@@ -1,4 +1,4 @@
-<div class="container">
+<div [ngClass]="{'container': true, 'fade-out': animating}" #container>
     <!-- Hero -->
     <div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded, 'fade-in-hero-text': fadeInHeroText}"
         [appImagePlaceholder]="{isHeroImageLoaded: isHeroImageLoaded}">
@@ -8,7 +8,7 @@
         <img class="desktop main-image" src="assets/images/hero_images/main_desktop_hero.webp"
             alt="A wide open book on a table surrounded by a tiny sci-fi civilization" (load)="onHeroImageLoad()">
         <h1 *ngIf="isHeroImageLoaded">StoriesAI</h1>
-        <h2 *ngIf="isHeroImageLoaded">Descubre historias escritas y dibujadas por una IA</h2>
+        <h2 *ngIf="isHeroImageLoaded">Descubre historias interactivas escritas y dibujadas por una IA</h2>
     </div>
 
     <p class="page-description">Todas las historias han sido escritas por ChatGPT e ilustradas por Midjourney</p>
@@ -20,6 +20,10 @@
         <hr class="right-hr">
     </div>
     <div class="genres-container">
-        <app-genre-thumbnail *ngFor="let genre of genres" [genre]="genre"></app-genre-thumbnail>
+        <app-genre-thumbnail *ngFor="let genre of genres; let index = index" [genre]="genre"
+            [ngStyle]="{'z-index': index + 1}" (pageTransition)="onPageTransition($event)"
+            [appImageReposition]="{toGenrePage: true}"></app-genre-thumbnail>
+        <!-- <app-genre-thumbnail *ngFor="let genre of genres; let index = index" [genre]="genre"
+            [ngStyle]="{'z-index': index + 1}" (pageTransition)="onPageTransition($event)"></app-genre-thumbnail> -->
     </div>
 </div>

@@ -7,3 +7,18 @@ $screen-xxl: 1441px;
 $text-color-main: #f0f3f7;
 
 $white: #ffffff;
+
+$story-title-font-size: 1.5rem;
+$story-title-padding-top-bottom: 1.5rem;
+$story-container-padding-top: 5rem; // This value corresponds to the value it should have on $screen-lg. We set it here as @media-queries don't work on scss variables. In story-page.scss we set the value for small and large screens
+
+/* Story page */
+:root {
+    --story-title-font-size: 1.5rem;
+    --story-title-padding-top-bottom: 1.5rem;
+    --story-container-padding-top: 0rem;
+
+    @media screen and (min-width: $screen-lg) {
+        --story-container-padding-top: 5rem;
+    }
+}

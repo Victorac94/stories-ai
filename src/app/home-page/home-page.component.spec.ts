@@ -3,9 +3,9 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomePageComponent } from './home-page.component';
-import { ImagePlaceholderDirective } from '../image-placeholder.directive';
+import { ImagePlaceholderDirective } from '../directives/image-placeholder.directive';
 import { GenreThumbnailComponent } from '../genre-thumbnail/genre-thumbnail.component';
-import { WaveBorderDirective } from '../wave-border.directive';
+import { WaveBorderDirective } from '../directives/wave-border.directive';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;

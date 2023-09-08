@@ -5,7 +5,8 @@ export interface IStory {
     genre_es: string,
     id: number,
     title: string,
-    thumbnail: string,
+    thumbnail_desktop: string,
+    thumbnail_mobile: string,
     prompt: string,
     rootStory: IRootStory
 }

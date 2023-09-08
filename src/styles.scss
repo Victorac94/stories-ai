@@ -126,6 +126,19 @@ body {
     }
 }
 
+.slider {
+    animation: slideRight 700ms linear 1;
+
+    @keyframes slideRight {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(100%);
+        }
+    }
+}
+
 /* ###########################################
 ################ MEDIA QUERIES ############### 
 ########################################### */
@@ -133,5 +146,20 @@ body {
 @media screen and (min-width: 1000px) {
     body {
         padding-bottom: 0;
+    }
+
+    .slider {
+        animation-duration: 1s;
+    }
+}
+
+/* Reduce animations for users with vestibular disorders */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        transition-duration: 0.001s !important;
+        animation-duration: 0.001s !important;
+        animation-iteration-count: 1 !important;
     }
 }

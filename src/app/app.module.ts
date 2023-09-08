@@ -10,9 +10,13 @@ import { StoryPageComponent } from './story-page/story-page.component';
 import { GenreThumbnailComponent } from './genre-thumbnail/genre-thumbnail.component';
 import { StoryThumbnailComponent } from './story-thumbnail/story-thumbnail.component';
 import { ChooseOptionComponent } from './choose-option/choose-option.component';
-import { WaveBorderDirective } from './wave-border.directive';
-import { ImagePlaceholderDirective } from './image-placeholder.directive';
-import { CapitalizePipe } from './capitalize.pipe';
+
+import { WaveBorderDirective } from './directives/wave-border.directive';
+import { ImagePlaceholderDirective } from './directives/image-placeholder.directive';
+import { RevealTextDirective } from './directives/reveal-text.directive';
+import { ImageRepositionDirective } from './directives/image-reposition.directive';
+
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,9 @@ import { CapitalizePipe } from './capitalize.pipe';
     ChooseOptionComponent,
     WaveBorderDirective,
     ImagePlaceholderDirective,
-    CapitalizePipe
+    CapitalizePipe,
+    RevealTextDirective,
+    ImageRepositionDirective
   ],
   imports: [
     BrowserModule,

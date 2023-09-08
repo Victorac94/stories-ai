@@ -3,8 +3,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 
 import { GenreThumbnailComponent } from './genre-thumbnail.component';
-import { ImagePlaceholderDirective } from '../image-placeholder.directive';
-import { WaveBorderDirective } from '../wave-border.directive';
+import { ImagePlaceholderDirective } from '../directives/image-placeholder.directive';
+import { WaveBorderDirective } from '../directives/wave-border.directive';
 import { DebugElement } from '@angular/core';
 
 describe('GenreThumbnailComponent', () => {

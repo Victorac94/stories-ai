@@ -1,11 +1,18 @@
 <div class="container">
-    <div class="image-container wave-border-container" [appWaveBorder]="imageContainer"
+    <div class="thumbnail-container wave-border-container"
         [appImagePlaceholder]="{'isThumbnailImageLoaded': isThumbnailImageLoaded, 'isForThumbnail': true, 'isFullWidth': true}"
-        #imgContainer>
-        <div class="wave-border border-1 full-width"></div>
-        <div class="wave-border border-2 full-width"></div>
-        <img [routerLink]="genre.link" [src]="genre.image" (load)="onThumbnailImageLoaded()" [alt]="genre.name">
+        (click)="onPageTransition($event)" (animationend)="onAnimationEnd()" #thumbnailContainer>
+        <!-- <div class="wave-border border-1 full-width"></div>
+        <div class="wave-border border-2 full-width"></div> -->
+        <!-- <img [routerLink]="genre.link" [src]="genre.image" (load)="onThumbnailImageLoaded()" [alt]="genre.name"> -->
+        <div class="thumbnail-wrapper" (mouseenter)="onThumbnailHover()" (touchstart)="onThumbnailHover()"
+            (mouseleave)="onThumbnailUnhover()" (touchend)="onThumbnailUnhover()" #thumbnailWrapper>
+            <img [src]="genre.image" (load)="onThumbnailImageLoaded()" [alt]="genre.name" #thumbnailImage>
+        </div>
     </div>
-    <h4 [routerLink]="genre.link" [appWaveBorder]="imageContainer" #genreName>
+    <!-- <h4 [routerLink]="genre.link" [appWaveBorder]="imageContainer" (click)="onPageTransition($event)" #genreName>
+        {{genre.name}}</h4> -->
+    <h4 (click)="onPageTransition($event)" (mouseenter)="onThumbnailHover()" (touchstart)="onThumbnailHover()"
+        (mouseleave)="onThumbnailUnhover()" (touchend)="onThumbnailUnhover()" #genreName>
         {{genre.name}}</h4>
 </div>

@@ -9,16 +9,9 @@
 .wrapper {
     width: 100%;
     max-width: 1200px;
-    animation: fadeIn 0.6s ease-out;
+    // animation: fadeIn 0.6s ease-out;
     background-color: #1f2c3b;
-
-    h2 {
-        font-size: 1.5rem;
-        color: $white;
-        padding: 1.5rem 1rem;
-        text-align: center;
-        background-color: #1f2c3b;
-    }
+    overflow: hidden;
 
     p {
         color: $text-color-main;
@@ -27,7 +20,8 @@
         text-align: justify;
     }
 
-    img {
+    img,
+    video {
         width: 100%;
     }
 
@@ -35,41 +29,86 @@
         animation: fadeIn 0.6s ease-out;
     }
 
-    .main-image-container {
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.6s ease-out;
+
+        h2 {
+            // font-size: 1.5rem;
+            font-size: $story-title-font-size;
+            color: $white;
+            // padding: 1.5rem 1rem;
+            padding: $story-title-padding-top-bottom 1rem;
+            text-align: center;
+            display: inline-block;
+            background-color: #1f2c3b;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                left: -35%;
+                top: 0;
+                width: 140%;
+                height: 100%;
+                background: linear-gradient(to right, transparent 0%, #1f2c3b 30%, #1f2c3b 100%);
+                animation: slideRight 600ms 100ms linear forwards;
+
+                @keyframes slideRight {
+                    from {
+                        transform: translateX(0);
+                    }
+                    to {
+                        transform: translateX(100%);
+                    }
+                }
+            }
+        }
+    }
+
+    .main-media-container {
         width: 100%;
         min-height: calc(100vw * 16 / 9); // aspect ratio 9:16
+        // height: auto;
         position: relative;
 
-        img {
+        video {
             position: relative;
             z-index: 1;
             opacity: 0;
         }
 
         &.hero-loaded {
-            animation: fadeIn 0.6s ease-out;
+            // animation: fadeIn 0.6s ease-out;
 
-            img {
+            video {
                 opacity: 1;
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+        // @keyframes fadeIn {
+        //     from {
+        //         opacity: 0;
+        //     }
+        //     to {
+        //         opacity: 1;
+        //     }
+        // }
     }
 
-    .image-desktop {
+    .media-desktop {
         display: none;
     }
 
     .selected-option {
         animation: fadeIn 0.6s ease-out;
+
+        video {
+            width: 100%;
+            height: auto;
+        }
     }
 
     .footer {
@@ -113,7 +152,7 @@
 
 @keyframes fadeIn {
     from {
-        opacity: 0;
+        opacity: 0.5;
     }
     to {
         opacity: 1;
@@ -154,7 +193,8 @@
         background-attachment: fixed;
 
         .container-filter {
-            padding-top: 5rem;
+            // padding-top: 5rem;
+            padding-top: $story-container-padding-top;
             padding-bottom: 2rem;
             background-color: rgba(29, 34, 40, 0.7);
             -webkit-backdrop-filter: blur(10px);
@@ -174,15 +214,15 @@
             margin: 2rem;
         }
 
-        .main-image-container {
+        .main-media-container {
             min-height: calc(100% * 9 / 16); // Aspect ratio 16:9. 992px is the value of this media query min-width
         }
 
-        .image-mobile {
+        .media-mobile {
             display: none;
         }
 
-        .image-desktop {
+        .media-desktop {
             display: block;
         }
 

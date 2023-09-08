@@ -1,11 +1,16 @@
 <div class="container">
-    <div class="image-container wave-border-container" [routerLink]="['/', 'genres', story.genre, story.id]"
-        [appWaveBorder]="imageContainer"
+    <!-- <div class="thumbnail-container wave-border-container" [routerLink]="['/', 'genres', story.genre, story.id]" -->
+    <div class="thumbnail-container wave-border-container"
         [appImagePlaceholder]="{'isThumbnailImageLoaded': isThumbnailImageLoaded, 'isForThumbnail': true}"
-        #imgContainer>
-        <div class="wave-border border-1"></div>
-        <div class="wave-border border-2"></div>
-        <img [src]="story.thumbnail" (load)="onThumbnailImageLoaded()" [alt]="story.title">
+        (click)="onPageTransition($event)" (animationend)="onAnimationEnd()" #thumbnailContainer>
+        <!-- <div class="wave-border border-1"></div>
+        <div class="wave-border border-2"></div> -->
+        <div class="thumbnail-wrapper" #thumbnailWrapper>
+            <img class="desktop" [src]="story.thumbnail_desktop" (load)="onThumbnailImageLoaded()" [alt]="story.title">
+            <img class="mobile" [src]="story.thumbnail_mobile" (load)="onThumbnailImageLoaded()" [alt]="story.title">
+        </div>
     </div>
-    <h4 [routerLink]="['/', 'genres', story.genre, story.id]" [appWaveBorder]="imageContainer">{{story.title}}</h4>
+    <!-- <h4 [routerLink]="['/', 'genres', story.genre, story.id]" [appWaveBorder]="imageContainer"
+        (click)="onPageTransition($event)">{{story.title}}</h4> -->
+    <h4 (click)="onPageTransition($event)">{{story.title}}</h4>
 </div>

@@ -38,8 +38,6 @@ export class ChooseOptionComponent implements OnInit, OnDestroy {
 
   }
 
-  // TODO: Hacer que en vez de hacer fadeIn a la imagen y mostrarla cuando haya cargado entera, ponerle fadeIn al componente entero de esa página cuando cargamos una historia o genero nuevos y la imagen se vaya mostrando según va cargando.
-
   // TODO: ocultar las imágenes de choose option de la historia anterior cuando cargamos una historia nueva desde la propia story page
 
   ngOnInit(): void {

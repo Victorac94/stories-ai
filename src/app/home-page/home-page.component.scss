@@ -2,6 +2,11 @@
 
 .container {
     padding-bottom: 5rem;
+    background-color: #1f2c3b;
+
+    &.fade-out {
+        animation: fadeOut 500ms ease-out forwards;
+    }
 }
 
 .hero-container {
@@ -40,12 +45,14 @@
         left: 50%;
         transform: translate(-50%, calc(-50% - 2.5rem));
         padding: 4rem;
-        color: $white;
+        color: $text-color-main;
         font-family: "Varela Round", sans-serif;
         font-weight: 400;
         font-size: 2.5rem;
         text-align: center;
-        text-shadow: 0 0 10px #16202b, 0 0 10px #16202b;
+        text-shadow:
+            0 0 10px #16202b,
+            0 0 10px #16202b;
         opacity: 1;
         z-index: 1;
     }
@@ -61,7 +68,9 @@
         font-weight: 400;
         font-size: 1.2rem;
         text-align: center;
-        text-shadow: 0 0 10px #000000, 0 0 15px #000000;
+        text-shadow:
+            0 0 10px #000000,
+            0 0 15px #000000;
         transform: translate(-50%, calc(-50% + 1rem));
         opacity: 1;
         z-index: 1;
@@ -131,6 +140,15 @@
     }
 }
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 /* ################################################
 ################### MEDIA QUERIES #################
 ################################################ */
@@ -172,7 +190,7 @@
 
     .genres-container {
         app-genre-thumbnail {
-            flex-basis: 50%;
+            flex-basis: 33%;
         }
     }
 }

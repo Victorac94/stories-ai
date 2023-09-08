@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { ChooseOptionComponent } from './choose-option.component';
-import { ImagePlaceholderDirective } from '../image-placeholder.directive';
+import { ImagePlaceholderDirective } from '../directives/image-placeholder.directive';
 
 describe('ChooseOptionComponent', () => {
   let component: ChooseOptionComponent;

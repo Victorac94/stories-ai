@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit, Renderer2 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -16,26 +16,30 @@ import { AuxiliaryService } from '../auxiliary.service';
   templateUrl: './genre-page.component.html',
   styleUrls: ['./genre-page.component.scss']
 })
-export class GenrePageComponent implements OnInit, OnDestroy {
+export class GenrePageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   stories: IStory[] = [] as IStory[];
   genre: string = '';
   genreChangeSubscription: Subscription = new Subscription();
+  genreRouteLink: string = '';
 
   desktopHeroImage: string = '';
   mobileHeroImage: string = '';
 
   isHeroImageLoaded: boolean = false;
+  animating: boolean = false;
 
   constructor(
     private router: Router,
-    private auxiliaryService: AuxiliaryService
+    private auxiliaryService: AuxiliaryService,
+    private renderer2: Renderer2
   ) {
 
   }
 
   ngOnInit(): void {
     this.genreChangeSubscription = this.router.events.subscribe(e => {
+      // When loading a new genre page and already being in a genre page (eg: from Horror to Space)
       if (e instanceof NavigationEnd) {
         this.isHeroImageLoaded = false;
         this.auxiliaryService.createImagePlaceholder();
@@ -47,6 +51,13 @@ export class GenrePageComponent implements OnInit, OnDestroy {
     this.scrollTop();
     this.loadStories();
 
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      console.log(this.auxiliaryService.getAppContainerRef().nativeElement, this.auxiliaryService.getGenreThumbnailRef())
+      this.renderer2.removeChild(this.auxiliaryService.getAppContainerRef().nativeElement, this.auxiliaryService.getGenreThumbnailRef());
+    }, 200);
   }
 
   ngOnDestroy(): void {
@@ -75,24 +86,28 @@ export class GenrePageComponent implements OnInit, OnDestroy {
     switch (genre) {
       case 'space':
         this.stories = spaceStories;
-        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
-        this.mobileHeroImage = 'assets/images/hero_images/space_mobile_hero.webp';
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.jpeg';
+        this.mobileHeroImage = 'assets/images/hero_images/space_mobile_hero.jpeg';
         break;
       case 'desert':
         this.stories = diverseStories;
-        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
-        this.mobileHeroImage = 'assets/images/hero_images/space_desktop_hero.webp';
+        this.desktopHeroImage = 'assets/images/hero_images/space_desktop_hero.jpeg';
+        this.mobileHeroImage = 'assets/images/hero_images/space_mobile_hero.jpeg';
         break;
       case 'horror':
         this.stories = horrorStories;
-        this.desktopHeroImage = 'assets/images/hero_images/horror_desktop_hero.webp';
-        this.mobileHeroImage = 'assets/images/hero_images/horror_mobile_hero.webp';
+        this.desktopHeroImage = 'assets/images/hero_images/horror_desktop_hero.jpeg';
+        this.mobileHeroImage = 'assets/images/hero_images/horror_mobile_hero.jpeg';
         break;
       case 'diverse':
         this.stories = diverseStories;
-        this.desktopHeroImage = 'assets/images/hero_images/diverse_desktop_hero.webp';
-        this.mobileHeroImage = 'assets/images/hero_images/diverse_mobile_hero.webp';
+        this.desktopHeroImage = 'assets/images/hero_images/diverse_desktop_hero.jpeg';
+        this.mobileHeroImage = 'assets/images/hero_images/diverse_mobile_hero.jpeg';
         break;
     }
+  }
+
+  onPageTransition($event: any): void {
+    this.animating = true;
   }
 }

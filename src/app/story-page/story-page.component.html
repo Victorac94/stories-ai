@@ -1,18 +1,30 @@
 <div class="container" #container>
-    <div class="container-filter">
+    <div class="container-filter" id="container-filter">
         <div class="wrapper" *ngIf="story">
             <!-- Title -->
-            <h2>{{story.title}}</h2>
+            <div class="title-container">
+                <h2 id="story-title">{{story.title}}</h2>
+            </div>
 
             <!-- Main image -->
-            <div [ngClass]="{'main-image-container': true, 'hero-loaded': isMainImageLoaded}"
+            <div [ngClass]="{'main-media-container': true, 'hero-loaded': isMainImageLoaded}"
                 [appImagePlaceholder]="{isHeroImageLoaded: isMainImageLoaded}">
-                <img class="image-desktop" (load)="onMainImageLoad()" [src]="story.rootStory.image_desktop">
-                <img class="image-mobile" (load)="onMainImageLoad()" [src]="story.rootStory.image_mobile">
+                <img class="media-desktop" (load)="onMainImageLoad($event)" [src]="story.rootStory.image_desktop">
+                <img class="media-mobile" (load)="onMainImageLoad($event)" [src]="story.rootStory.image_mobile">
+                <!-- <video class="media-desktop" autoplay loop disableRemotePlayback
+                    [poster]="story.rootStory.image_desktop" #mainMediaDesktop>
+                    <source [src]="story.rootStory.video_desktop" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video>
+                <video class="media-mobile" autoplay loop disableRemotePlayback [poster]="story.rootStory.image_mobile"
+                    #mainMediaMobile>
+                    <source [src]="story.rootStory.video_mobile" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video> -->
             </div>
 
             <!-- Intro -->
-            <p class="intro">{{story.rootStory.text}}</p>
+            <p class="intro" appRevealText>{{story.rootStory.text}}</p>
 
             <!-- Choose story option -->
             <app-choose-option [chooseOption]="'primary'" [optionA]="story.rootStory.optionA"
@@ -20,11 +32,21 @@
 
             <!-- Selected option -->
             <div class="selected-option" *ngIf="isPrimaryChooseOptionSelected">
-                <img class="image-desktop" [src]="selectedPrimaryChooseOption.image_desktop"
+                <video class="media-desktop" autoplay loop disableRemotePlayback
+                    [poster]="selectedPrimaryChooseOption.image_desktop" #primaryOptionMediaDesktop>
+                    <source [src]="selectedPrimaryChooseOption.video_desktop" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video>
+                <video class="media-mobile" autoplay loop disableRemotePlayback
+                    [poster]="selectedPrimaryChooseOption.image_mobile" #primaryOptionMediaMobile>
+                    <source [src]="selectedPrimaryChooseOption.video_mobile" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video>
+                <!-- <img class="image-desktop" [src]="selectedPrimaryChooseOption.image_desktop"
                     [alt]="selectedPrimaryChooseOption.optionText">
                 <img class="image-mobile" [src]="selectedPrimaryChooseOption.image_mobile"
-                    [alt]="selectedPrimaryChooseOption.optionText">
-                <p>{{selectedPrimaryChooseOption.text}}</p>
+                    [alt]="selectedPrimaryChooseOption.optionText"> -->
+                <p appRevealText>{{selectedPrimaryChooseOption.text}}</p>
             </div>
 
             <!-- Choose story option -->
@@ -34,11 +56,21 @@
 
             <!-- Selected option -->
             <div class="selected-option" *ngIf="isSecondaryChooseOptionSelected">
-                <img class="image-desktop" [src]="selectedSecondaryChooseOption.image_desktop"
+                <video class="media-desktop" autoplay loop disableRemotePlayback
+                    [poster]="selectedSecondaryChooseOption.image_desktop" #secondaryOptionMediaDesktop>
+                    <source [src]="selectedSecondaryChooseOption.video_desktop" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video>
+                <video class="media-mobile" autoplay loop disableRemotePlayback
+                    [poster]="selectedSecondaryChooseOption.image_mobile" #secondaryOptionMediaMobile>
+                    <source [src]="selectedSecondaryChooseOption.video_mobile" type="video/mp4">
+                    Tu navegador no soporta la etiqueta &lt;video&gt;
+                </video>
+                <!-- <img class="image-desktop" [src]="selectedSecondaryChooseOption.image_desktop"
                     [alt]="selectedSecondaryChooseOption.optionText">
                 <img class="image-mobile" [src]="selectedSecondaryChooseOption.image_mobile"
-                    [alt]="selectedSecondaryChooseOption.optionText">
-                <p>{{selectedSecondaryChooseOption.text}}</p>
+                    [alt]="selectedSecondaryChooseOption.optionText"> -->
+                <p appRevealText>{{selectedSecondaryChooseOption.text}}</p>
             </div>
 
             <!-- Footer -->

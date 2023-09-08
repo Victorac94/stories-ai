@@ -1,10 +1,11 @@
-<div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded}"
+<div [ngClass]="{'hero-container': true, 'hero-loaded': isHeroImageLoaded, 'fade-out': animating}"
     [appImagePlaceholder]="{isHeroImageLoaded: isHeroImageLoaded}">
     <img class="mobile" [src]="mobileHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
     <img class="desktop" [src]="desktopHeroImage" alt="Genre main image" (load)="onHeroImageLoad()">
-    <h2 *ngIf="isHeroImageLoaded">{{this.genre}}</h2>
+    <!-- <h2 *ngIf="isHeroImageLoaded">{{this.genre}}</h2> -->
 </div>
-<div class="stories-container">
+<div [ngClass]="{'stories-container': true, 'fade-out': animating}">
     <h3>Últimas historias</h3>
-    <app-story-thumbnail *ngFor="let story of stories" [story]="story"></app-story-thumbnail>
+    <app-story-thumbnail *ngFor="let story of stories" [story]="story" [appImageReposition]="{toStoryPage: true}"
+        (pageTransition)="onPageTransition($event)"></app-story-thumbnail>
 </div>

@@ -1,4 +1,4 @@
-export interface IDirectiveConfig {
+export interface IImagePlaceholderDirective {
     isHeroImageLoaded?: boolean,
     isOptionAImageLoaded?: boolean,
     isOptionBImageLoaded?: boolean,

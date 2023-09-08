@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AuxiliaryService } from '../auxiliary.service';
 
 @Component({
@@ -12,34 +13,47 @@ export class HomePageComponent implements OnInit {
   genres: any[] = [
     {
       name: 'Espacio',
-      image: 'assets/images/genre_thumbnails/space_thumbnail_genre.webp',
+      name_en: 'space',
+      image: `assets/images/hero_images/space_mobile_hero.jpeg`,
       link: '/genres/space'
     },
     // {
     //   name: 'Desierto',
-    //   image: 'assets/images/genre_thumbnails/genre_2.webp',
+    //   name_en: 'desert',
+    //   image: 'assets/images/hero_images/desert_mobile_hero.webp',
     //   link: '/genres/desert'
     // },
     {
       name: 'Terror',
-      image: 'assets/images/genre_thumbnails/horror_thumbnail_genre.webp',
+      name_en: 'horror',
+      image: `assets/images/hero_images/horror_mobile_hero.jpeg`,
       link: '/genres/horror'
     },
     {
       name: 'Variado',
-      image: 'assets/images/genre_thumbnails/diverse_thumbnail_genre.webp',
+      name_en: 'diverse',
+      image: `assets/images/hero_images/diverse_mobile_hero.jpeg`,
       link: '/genres/diverse'
     },
   ];
 
   isHeroImageLoaded: boolean = false;
   fadeInHeroText: boolean = true;
+  animating: boolean = false;
+  genreRouteLink: string = '';
+  appHeader: ElementRef = new ElementRef('');
 
   constructor(
     private router: Router,
     private auxiliaryService: AuxiliaryService
   ) {
+    this.appHeader = this.auxiliaryService.getAppHeaderRef();
+  }
 
+  @ViewChild('container', { static: true }) container: ElementRef = new ElementRef('');
+
+  @HostListener('window:resize') onWindowResize() {
+    this.loadGenresThumbnail();
   }
 
   ngOnInit() {
@@ -51,6 +65,21 @@ export class HomePageComponent implements OnInit {
     }
 
     this.shouldFadeInHeroText();
+    this.loadGenresThumbnail();
+  }
+
+  loadGenresThumbnail(): void {
+    // Mobile viewport
+    if (this.container.nativeElement.clientWidth < 992 && this.container.nativeElement.clientWidth < window.innerHeight) {
+      this.genres.forEach(genre => {
+        genre.image = `assets/images/hero_images/${genre.name_en}_mobile_hero.jpeg`;
+      });
+      // Desktop viewport
+    } else {
+      this.genres.forEach(genre => {
+        genre.image = `assets/images/hero_images/${genre.name_en}_desktop_hero.jpeg`;
+      });
+    }
   }
 
   onHeroImageLoad(): void {
@@ -64,5 +93,9 @@ export class HomePageComponent implements OnInit {
     } else {
       this.fadeInHeroText = false;
     }
+  }
+
+  onPageTransition($event: any): void {
+    this.animating = true;
   }
 }
